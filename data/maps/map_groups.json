@@ -1,6 +1,7 @@
 {
   "group_order": [
     "gMapGroup_TownsAndRoutes",
+    "gMapGroup_IndoorNulltown",
     "gMapGroup_IndoorLittleroot",
     "gMapGroup_IndoorOldale",
     "gMapGroup_IndoorDewford",
@@ -47,6 +48,7 @@
     "EverGrandeCity",
     "LittlerootTown",
     "OldaleTown",
+    "Nulltown",
     "DewfordTown",
     "LavaridgeTown",
     "FallarborTown",
@@ -93,6 +95,13 @@
     "Underwater_Route129",
     "Underwater_Route105",
     "Underwater_Route125"
+  ],
+  "gMapGroup_IndoorNulltown": [
+    "Nulltown_PlayersHouse_1F",
+    "Nulltown_PlayersHouse_2F",
+    "Nulltown_QuinsHouse_1F",
+    "Nulltown_QuinsHouse_2F",
+    "Nulltown_ProfessorThornsLab"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",
@@ -334,6 +343,7 @@
     "GraniteCave_B2F",
     "GraniteCave_StevensRoom",
     "PetalburgWoods",
+    "LostClearing",
     "MtChimney",
     "JaggedPass",
     "FieryPath",
@@ -622,6 +632,7 @@
     "Route124_DivingTreasureHuntersHouse"
   ],
   "connections_include_order": [
+    "Nulltown",
     "LittlerootTown",
     "OldaleTown",
     "DewfordTown",

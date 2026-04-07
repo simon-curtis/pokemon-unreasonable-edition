@@ -38,25 +38,32 @@ OldaleTown_PokemonCenter_1F_EventScript_WirelessClubAvailable::
 	end
 
 OldaleTown_PokemonCenter_1F_Text_TrainersCanUsePC:
-	.string "That PC in the corner there is\n"
-	.string "for any POKéMON TRAINER to use.\p"
-	.string "Naturally, that means you're welcome\n"
-	.string "to use it, too.$"
+	.string "The BUREAU covers all healing costs.\n"
+	.string "Unlimited visits. No co-pays.\p"
+	.string "They say healthy POKéMON produce\n"
+	.string "better RESONANCE ENERGY readings.\p"
+	.string "Meanwhile humans in this city\n"
+	.string "do not even have a dentist.$"
 
 OldaleTown_PokemonCenter_1F_Text_PokemonCentersAreGreat:
-	.string "POKéMON CENTERS are great!\p"
-	.string "You can use their services as much\n"
-	.string "as you like, and it's all for free.\l"
-	.string "You never have to worry!$"
+	.string "The STEEL MILL runs day and night.\n"
+	.string "You can hear it from here.\p"
+	.string "That humming is not the lights.\n"
+	.string "That is the RESONANCE CONDUITS\l"
+	.string "in the walls.\p"
+	.string "You get used to it.\n"
+	.string "Or you go a little deaf. Either way.$"
 
 OldaleTown_PokemonCenter_1F_Text_WirelessClubNotAvailable:
-	.string "The POKéMON WIRELESS CLUB on\n"
-	.string "the second floor was built recently.\p"
-	.string "But they say they're still making\n"
-	.string "adjustments.$"
+	.string "The WIRELESS CLUB upstairs lets you\n"
+	.string "teleport POKéMON across dimensions.\p"
+	.string "It's under construction though.\n"
+	.string "Last guy who used it early got his\l"
+	.string "PIKACHU fused with a MAILBOX.$"
 
 OldaleTown_PokemonCenter_1F_Text_TradedInWirelessClub:
-	.string "The POKéMON WIRELESS CLUB on\n"
-	.string "the second floor was built recently.\p"
-	.string "I traded POKéMON right away.$"
+	.string "I traded my POKéMON wirelessly!\n"
+	.string "Just beamed it across the void!\p"
+	.string "It screamed the whole time but\n"
+	.string "arrived perfectly fine! Science!$"
 

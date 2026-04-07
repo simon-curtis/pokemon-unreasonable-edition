@@ -55,7 +55,7 @@
       "x": 12,
       "y": 9,
       "elevation": 3,
-      "item": "ITEM_SACRED_ASH",
+      "item": "ITEM_PP_MAX",
       "flag": "FLAG_HIDDEN_ITEM_NAVEL_ROCK_TOP_SACRED_ASH"
     }
   ]

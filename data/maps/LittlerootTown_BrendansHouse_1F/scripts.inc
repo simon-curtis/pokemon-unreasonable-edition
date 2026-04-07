@@ -288,14 +288,14 @@ PlayersHouse_1F_Text_IsntItNiceInHere:
 	.string "Isn't it nice in here, too?$"
 
 PlayersHouse_1F_Text_MoversPokemonGoSetClock:
-	.string "The mover's POKéMON do all the work\n"
-	.string "of moving us in and cleaning up after.\l"
-	.string "This is so convenient!\p"
+	.string "We made VIGOROTH do all the heavy\n"
+	.string "lifting. They work for free and can't\l"
+	.string "unionize. Isn't that convenient!\p"
 	.string "{PLAYER}, your room is upstairs.\n"
-	.string "Go check it out, dear!\p"
-	.string "DAD bought you a new clock to mark\n"
-	.string "our move here.\l"
-	.string "Don't forget to set it!$"
+	.string "It's the only room. DAD doesn't\l"
+	.string "live here. He lives at his GYM.\p"
+	.string "He did buy you a clock though.\n"
+	.string "Go set it. It's all he gave us.$"
 
 PlayersHouse_1F_Text_ArentYouInterestedInRoom:
 	.string "MOM: Well, {PLAYER}?\p"
@@ -315,16 +315,17 @@ PlayersHouse_1F_Text_MaybeDadWillBeOn:
 	.string "Maybe DAD will be on!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
-	.string "MOM: Oh… It's over.\p"
-	.string "I think DAD was on, but we missed him.\n"
-	.string "Too bad.$"
+	.string "MOM: We missed him. Of course.\p"
+	.string "The ONE time your father is on TV\n"
+	.string "and we can't even catch it.\l"
+	.string "Story of our lives.$"
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
-	.string "Oh, yes.\n"
-	.string "One of DAD's friends lives in town.\p"
-	.string "PROF. BIRCH is his name.\p"
-	.string "He lives right next door, so you should\n"
-	.string "go over and introduce yourself.$"
+	.string "Oh right. Your dad's friend lives\n"
+	.string "next door. PROF. BIRCH.\p"
+	.string "He's a POKéMON researcher.\n"
+	.string "Go say hi. He gives free animals\l"
+	.string "to children. It's his whole thing.$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"
@@ -334,21 +335,25 @@ PlayersHouse_1F_Text_DidYouMeetProfBirch:
 	.string "PROF. BIRCH?$"
 
 PlayersHouse_1F_Text_YouShouldRestABit:
-	.string "MOM: How are you doing, {PLAYER}?\n"
-	.string "You look a little tired.\p"
-	.string "I think you should rest a bit.$"
+	.string "MOM: {PLAYER}! You look terrible.\n"
+	.string "When did you last sleep? In a bed?\p"
+	.string "Not standing in a POKéMON CENTER?\n"
+	.string "Actual sleep? In your actual room?$"
 
 PlayersHouse_1F_Text_TakeCareHoney:
 	.string "MOM: Take care, honey!$"
 
 PlayersHouse_1F_Text_GotDadsBadgeHeresSomethingFromMom:
-	.string "MOM: Oh? Did DAD give you that BADGE?\p"
-	.string "Then here's something from your MOM!$"
+	.string "MOM: You beat your own FATHER?!\n"
+	.string "In COMBAT?! And he gave you a BADGE?!\p"
+	.string "This family is DEEPLY dysfunctional.\n"
+	.string "Here, take this. You've earned it.$"
 
 PlayersHouse_1F_Text_DontPushYourselfTooHard:
-	.string "Don't push yourself too hard, dear.\n"
-	.string "You can always come home.\p"
-	.string "Go for it, honey!$"
+	.string "Don't die out there, okay?\n"
+	.string "I can't afford the hospital bills.\p"
+	.string "Actually, do we have hospitals?\n"
+	.string "Just use a POKéMON CENTER. Whatever.$"
 
 PlayersHouse_1F_Text_IsThatAPokenav:
 	.string "MOM: What is that, honey? A POKéNAV?\n"
@@ -372,29 +377,27 @@ PlayersHouse_1F_Text_ReportFromPetalburgGym:
 	.string "report from in front of PETALBURG GYM.$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
-	.string "There is a movie on TV.\p"
-	.string "Two men are dancing on a big piano\n"
-	.string "keyboard.\p"
-	.string "Better get going!$"
+	.string "There's a movie on TV.\p"
+	.string "Two men are dancing on a giant piano.\n"
+	.string "This world has movies but no school.\p"
+	.string "Priorities.$"
 
 PlayersHouse_1F_Text_RunningShoesManual:
-	.string "It's the instruction booklet for the\n"
-	.string "RUNNING SHOES.\p"
-	.string "“Press the B Button to run while\n"
-	.string "wearing your RUNNING SHOES.\p"
-	.string "“Lace up your RUNNING SHOES and hit\n"
-	.string "the road running!”$"
+	.string "RUNNING SHOES instruction manual.\p"
+	.string "“Hold B to go fast. Do not hold B\n"
+	.string "near ledges, cliffs, or lava.\p"
+	.string "“Not responsible for any incidents\n"
+	.string "involving REPEL-less tall grass.”$"
 
 PlayersHouse_1F_Text_TicketFromBrineyCameForYou:
-	.string "DAD: Hm?\p"
-	.string "Hey, it's {PLAYER}!\p"
-	.string "It's been a while since I saw you,\n"
-	.string "but you look…stronger, somehow.\p"
-	.string "That's the impression I get.\n"
-	.string "But your old man hasn't given up yet!\p"
-	.string "Oh, yes, I have something for you.\n"
-	.string "This came to you from someone named\l"
-	.string "MR. BRINEY.$"
+	.string "DAD: Oh. You're home.\p"
+	.string "It's been so long I almost forgot\n"
+	.string "what you looked like. Ha ha.\l"
+	.string "That was a joke. I have a photo.\p"
+	.string "You look buffer. Have you been\n"
+	.string "fighting things? Of course you have.\p"
+	.string "Anyway, some old sailor named\n"
+	.string "MR. BRINEY sent you this.$"
 
 PlayersHouse_1F_Text_PortsInSlateportLilycove:
 	.string "DAD: Hm, a TICKET for a ferry?\p"
@@ -402,15 +405,17 @@ PlayersHouse_1F_Text_PortsInSlateportLilycove:
 	.string "SLATEPORT and LILYCOVE.$"
 
 PlayersHouse_1F_Text_BetterGetBackToGym:
-	.string "I'd better get back to PETALBURG GYM.\p"
-	.string "MOM, thanks for looking after the house\n"
-	.string "while I'm away.$"
+	.string "Welp, gotta go live at my GYM again.\p"
+	.string "MOM, thanks for, uh, everything.\n"
+	.string "I'll visit again in a few months.\l"
+	.string "Maybe. If I remember.$"
 
 PlayersHouse_1F_Text_DadShouldStayLonger:
-	.string "MOM: That DAD of yours…\p"
-	.string "He comes home for the first time in a\n"
-	.string "while, but all he talks about is POKéMON.\p"
-	.string "He should relax and stay a little longer.$"
+	.string "MOM: Your father came home and\n"
+	.string "immediately started talking about\l"
+	.string "SLAKING attack patterns.\p"
+	.string "He didn't ask about school. We don't\n"
+	.string "HAVE school, but still. The principle.$"
 
 PlayersHouse_1F_Text_IsThatABreakingStory:
 	.string "MOM: Is that a breaking news story?$"

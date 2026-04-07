@@ -1,62 +1,85 @@
+@ Ferro City Gym (RustboroCity_Gym) scripts
+@ Steel-type gym. Leader: Anvil (Mayor).
+@ Gym trainers: Dale (Marc slot), Portia (Tommy slot), Rivet (Josh slot)
+@ Post-battle: Anvil conspiracy scene about the Bureau
+
 RustboroCity_Gym_MapScripts::
 	.byte 0
 
+@ === ANVIL (gym leader) ===
+@ Uses the Roxanne script label for map.json compatibility
+
 RustboroCity_Gym_EventScript_Roxanne::
-	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneIntro, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC
-	specialvar VAR_RESULT, ShouldTryRematchBattle
-	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_RoxanneRematch
-	goto_if_unset FLAG_RECEIVED_TM_ROCK_TOMB, RustboroCity_Gym_EventScript_GiveRockTomb
-	msgbox RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
-	release
+	trainerbattle_single TRAINER_ANVIL_1, RustboroCity_Gym_Text_AnvilIntro, RustboroCity_Gym_Text_AnvilDefeat, RustboroCity_Gym_EventScript_AnvilDefeated, NO_MUSIC
+	goto_if_set FLAG_FERRO_ANVIL_POSTGAME, RustboroCity_Gym_EventScript_AnvilPostConvo
+	goto RustboroCity_Gym_EventScript_AnvilPostBattleScene
 	end
 
-RustboroCity_Gym_EventScript_RoxanneDefeated::
-	message RustboroCity_Gym_Text_ReceivedStoneBadge
+RustboroCity_Gym_EventScript_AnvilDefeated::
+	message RustboroCity_Gym_Text_ReceivedForgeBadge
 	waitmessage
 	call Common_EventScript_PlayGymBadgeFanfare
-	msgbox RustboroCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT
+	msgbox RustboroCity_Gym_Text_ForgeBadgeInfo, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_RUSTBORO_GYM
 	setflag FLAG_BADGE01_GET
-	setvar VAR_RUSTBORO_CITY_STATE, 1
-	addvar VAR_PETALBURG_GYM_STATE, 1
+	setflag FLAG_FERRO_DEFEATED_ANVIL
+	setvar VAR_FERRO_STATE, 2
 	setvar VAR_0x8008, 1
 	call Common_EventScript_SetGymTrainers
-	call_if_eq VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle
-	goto RustboroCity_Gym_EventScript_GiveRockTomb
+	goto RustboroCity_Gym_EventScript_GiveIronDefense
 	end
 
-RustboroCity_Gym_EventScript_GiveRockTomb::
-	giveitem ITEM_TM_ROCK_TOMB
+RustboroCity_Gym_EventScript_GiveIronDefense::
+	giveitem ITEM_TM_IRON_TAIL
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_TM_ROCK_TOMB
-	msgbox RustboroCity_Gym_Text_ExplainRockTomb, MSGBOX_DEFAULT
+	msgbox RustboroCity_Gym_Text_ExplainTM, MSGBOX_DEFAULT
+	goto RustboroCity_Gym_EventScript_AnvilPostBattleScene
+	end
+
+RustboroCity_Gym_EventScript_AnvilPostBattleScene::
+	goto_if_set FLAG_FERRO_ANVIL_POSTGAME, RustboroCity_Gym_EventScript_AnvilPostConvo
+	msgbox RustboroCity_Gym_Text_AnvilConspiracy1, MSGBOX_DEFAULT
+	msgbox RustboroCity_Gym_Text_AnvilConspiracy2, MSGBOX_DEFAULT
+	msgbox RustboroCity_Gym_Text_AnvilConspiracy3, MSGBOX_DEFAULT
+	setflag FLAG_FERRO_ANVIL_POSTGAME
+	setvar VAR_FERRO_STATE, 3
 	release
 	end
 
-RustboroCity_Gym_EventScript_RoxanneRematch::
-	trainerbattle_rematch_double TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxannePreRematch, RustboroCity_Gym_Text_RoxanneRematchDefeat, RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons
-	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
+RustboroCity_Gym_EventScript_AnvilPostConvo::
+	msgbox RustboroCity_Gym_Text_AnvilPostBattle, MSGBOX_DEFAULT
+	release
 	end
 
-RustboroCity_Gym_EventScript_Josh::
-	trainerbattle_single TRAINER_JOSH, RustboroCity_Gym_Text_JoshIntro, RustboroCity_Gym_Text_JoshDefeat
-	msgbox RustboroCity_Gym_Text_JoshPostBattle, MSGBOX_AUTOCLOSE
-	end
-
-RustboroCity_Gym_EventScript_Tommy::
-	trainerbattle_single TRAINER_TOMMY, RustboroCity_Gym_Text_TommyIntro, RustboroCity_Gym_Text_TommyDefeat
-	msgbox RustboroCity_Gym_Text_TommyPostBattle, MSGBOX_AUTOCLOSE
-	end
+@ === GYM TRAINERS ===
+@ Marc slot = Worker Dale (position 1,6)
 
 RustboroCity_Gym_EventScript_Marc::
-	trainerbattle_single TRAINER_MARC, RustboroCity_Gym_Text_MarcIntro, RustboroCity_Gym_Text_MarcDefeat
-	msgbox RustboroCity_Gym_Text_MarcPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_FERRO_DALE, RustboroCity_Gym_Text_DaleIntro, RustboroCity_Gym_Text_DaleDefeat
+	msgbox RustboroCity_Gym_Text_DalePostBattle, MSGBOX_AUTOCLOSE
 	end
+
+@ Tommy slot = Engineer Portia (position 3,9)
+
+RustboroCity_Gym_EventScript_Tommy::
+	trainerbattle_single TRAINER_FERRO_PORTIA, RustboroCity_Gym_Text_PortiaIntro, RustboroCity_Gym_Text_PortiaDefeat
+	msgbox RustboroCity_Gym_Text_PortiaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+@ Josh slot = Worker Rivet (position 5,13)
+
+RustboroCity_Gym_EventScript_Josh::
+	trainerbattle_single TRAINER_FERRO_RIVET, RustboroCity_Gym_Text_RivetIntro, RustboroCity_Gym_Text_RivetDefeat
+	msgbox RustboroCity_Gym_Text_RivetPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+@ === GYM GUIDE ===
 
 RustboroCity_Gym_EventScript_GymGuide::
 	lock
 	faceplayer
-	goto_if_set FLAG_DEFEATED_RUSTBORO_GYM, RustboroCity_Gym_EventScript_GymGuidePostVictory
+	goto_if_set FLAG_FERRO_DEFEATED_ANVIL, RustboroCity_Gym_EventScript_GymGuidePostVictory
 	msgbox RustboroCity_Gym_Text_GymGuideAdvice, MSGBOX_DEFAULT
 	release
 	end
@@ -65,6 +88,8 @@ RustboroCity_Gym_EventScript_GymGuidePostVictory::
 	msgbox RustboroCity_Gym_Text_GymGuidePostVictory, MSGBOX_DEFAULT
 	release
 	end
+
+@ === GYM STATUES ===
 
 RustboroCity_Gym_EventScript_LeftGymStatue::
 	lockall
@@ -88,196 +113,163 @@ RustboroCity_Gym_EventScript_GymStatue::
 	releaseall
 	end
 
+@ Stub for C code reference (field_control_avatar.c)
 RustboroCity_Gym_EventScript_RegisterRoxanne::
-	lockall
-	pokenavcall RustboroCity_Gym_Text_RoxanneRegisterCall
-	waitmessage
-	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
-	msgbox RustboroCity_Gym_Text_RegisteredRoxanne, MSGBOX_DEFAULT
-	waitfanfare
-	closemessage
-	delay 30
-	setflag FLAG_ENABLE_ROXANNE_MATCH_CALL
-	clearflag FLAG_ENABLE_ROXANNE_FIRST_CALL
-	releaseall
 	end
 
+@ === TEXT ===
+
+@ -- Gym Guide --
+
 RustboroCity_Gym_Text_GymGuideAdvice:
-	.string "Yo, how's it going?\p"
-	.string "Listen, my friend!\n"
-	.string "Would you like to become the CHAMPION?\p"
-	.string "I'm no TRAINER, not me, but I can\n"
-	.string "sure give you winning advice.\p"
-	.string "That's settled, then! We'll aim for the\n"
-	.string "POKéMON CHAMPIONSHIP together!\p"
-	.string "It's your job as a TRAINER to collect\n"
-	.string "GYM BADGES, am I right?\p"
-	.string "But GYM LEADERS aren't pushovers!\p"
-	.string "And that's where I come in!\n"
-	.string "I'm here to provide expert advice!\p"
-	.string "ROXANNE, the GYM LEADER, is a user\n"
-	.string "of ROCK-type POKéMON.\p"
-	.string "The ROCK type is very durable, but\n"
-	.string "it can't stand WATER-type and\l"
-	.string "GRASS-type moves.\p"
-	.string "Come see me afterwards, if you beat\n"
-	.string "the GYM LEADER.\p"
-	.string "Well, go for it!$"
+	.string "Welcome to FERRO CITY GYM!\n"
+	.string "Leader ANVIL specializes in\l"
+	.string "STEEL-type POKéMON!\p"
+	.string "The gym puzzle involves redirecting\n"
+	.string "POWER CONDUITS to open doors.\p"
+	.string "Just pull the switches in the right\n"
+	.string "order.\p"
+	.string "If the lights go out in town,\n"
+	.string "that is unrelated. Probably.$"
 
 RustboroCity_Gym_Text_GymGuidePostVictory:
-	.string "Whoa! What a breathtaking victory!\n"
-	.string "My cheering must've worked!\p"
-	.string "Great!\n"
-	.string "Check your TRAINER CARD.\p"
-	.string "The STONE BADGE you got should be\n"
-	.string "properly recorded on it.\p"
-	.string "In other words…\p"
-	.string "You've climbed the first step on\n"
-	.string "the stairs to the CHAMPIONSHIP!\p"
-	.string "That's got to feel awesome!$"
+	.string "You beat ANVIL! The FORGE BADGE\n"
+	.string "is yours!\p"
+	.string "Between you and me, he looked\n"
+	.string "relieved. Like he needed someone\l"
+	.string "to beat him so he could take a\l"
+	.string "break.$"
 
-RustboroCity_Gym_Text_JoshIntro:
-	.string "Don't take us GYM TRAINERS lightly!\n"
-	.string "I'll show you why we're better!$"
+@ -- Worker Dale --
 
-RustboroCity_Gym_Text_JoshDefeat:
-	.string "You were too good for me…$"
+RustboroCity_Gym_Text_DaleIntro:
+	.string "I work at the STEEL MILL by day\n"
+	.string "and train here by night!\p"
+	.string "I have not seen daylight in a\n"
+	.string "way that feels metaphorical!$"
 
-RustboroCity_Gym_Text_JoshPostBattle:
-	.string "You haven't seen anything of the ROCK\n"
-	.string "type's terrifying power!$"
+RustboroCity_Gym_Text_DaleDefeat:
+	.string "Your POKéMON fight with real spirit.$"
 
-RustboroCity_Gym_Text_TommyIntro:
-	.string "If you can't beat me, you won't stand\n"
-	.string "a chance against ROXANNE!$"
+RustboroCity_Gym_Text_DalePostBattle:
+	.string "The RESONANCE METERS in here are\n"
+	.string "going wild.\p"
+	.string "The BUREAU will be pleased.\n"
+	.string "I should not have said that.$"
 
-RustboroCity_Gym_Text_TommyDefeat:
-	.string "Wow! You've got some potential!$"
+@ -- Engineer Portia --
 
-RustboroCity_Gym_Text_TommyPostBattle:
-	.string "ROXANNE is stronger than me by\n"
-	.string "several times.\p"
-	.string "You'd better be on your guard!$"
+RustboroCity_Gym_Text_PortiaIntro:
+	.string "I designed this gym ’s puzzle\n"
+	.string "system! It ’s a simplified version\l"
+	.string "of the actual power grid!\p"
+	.string "If you fail, nothing bad happens!\n"
+	.string "Unlike the real one!$"
 
-RustboroCity_Gym_Text_MarcIntro:
-	.string "We might be in the middle of town,\n"
-	.string "but so what?\p"
-	.string "My ROCK POKéMON need room to\n"
-	.string "rampage!$"
+RustboroCity_Gym_Text_PortiaDefeat:
+	.string "Good battle!$"
 
-RustboroCity_Gym_Text_MarcDefeat:
-	.string "Oh, man oh man!\n"
-	.string "Our challenger is one feisty customer!$"
+RustboroCity_Gym_Text_PortiaPostBattle:
+	.string "MAYOR ANVIL used to be so energetic.\n"
+	.string "Lately he just looks like the\l"
+	.string "STEEL MILL is eating him alive.\p"
+	.string "Anyway! Good luck!$"
 
-RustboroCity_Gym_Text_MarcPostBattle:
-	.string "I have to hand it to our LEADER.\p"
-	.string "It took smarts and sense for her to\n"
-	.string "pick the ROCK type at her young age.$"
+@ -- Worker Rivet --
 
-RustboroCity_Gym_Text_RoxanneIntro:
-	.string "Hello, I am ROXANNE, the RUSTBORO\n"
-	.string "POKéMON GYM LEADER.\p"
-	.string "I became a GYM LEADER so that I might\n"
-	.string "apply what I learned at the POKéMON\l"
-	.string "TRAINER'S SCHOOL in battle.\p"
-	.string "Would you kindly demonstrate how you\n"
-	.string "battle, and with which POKéMON?$"
+RustboroCity_Gym_Text_RivetIntro:
+	.string "One more trainer between you and\n"
+	.string "the boss.\p"
+	.string "I have been doing double shifts\n"
+	.string "at the MILL and triple shifts here.\p"
+	.string "I do not know what sleep is\n"
+	.string "anymore. Let ’s go!$"
 
-RustboroCity_Gym_Text_RoxanneDefeat:
-	.string "So…\n"
-	.string "I lost…\p"
-	.string "It seems that I still have much more\n"
-	.string "to learn…\p"
-	.string "I understand.\p"
-	.string "The POKéMON LEAGUE's rules state\n"
-	.string "that TRAINERS are to be given this\l"
-	.string "if they defeat a GYM LEADER.\p"
-	.string "Please accept the official POKéMON\n"
-	.string "LEAGUE STONE BADGE.$"
+RustboroCity_Gym_Text_RivetDefeat:
+	.string "Finally. I can sit down.$"
 
-RustboroCity_Gym_Text_ReceivedStoneBadge:
-	.string "{PLAYER} received the STONE BADGE\n"
-	.string "from ROXANNE.$"
+RustboroCity_Gym_Text_RivetPostBattle:
+	.string "ANVIL is tough. His POKéMON are\n"
+	.string "tired but they fight like they\l"
+	.string "have something to prove.\p"
+	.string "Kind of like him, honestly.$"
 
-RustboroCity_Gym_Text_StoneBadgeInfoTakeThis:
-	.string "The STONE BADGE heightens the ATTACK\n"
-	.string "power of your POKéMON.\p"
-	.string "It also enables them to use the HM move\n"
-	.string "CUT outside of battle.\p"
-	.string "Please take this with you, too.$"
+@ -- Anvil (Gym Leader) --
 
-RustboroCity_Gym_Text_ExplainRockTomb:
-	.string "That TECHNICAL MACHINE, TM39,\n"
-	.string "contains ROCK TOMB.\p"
-	.string "It not only inflicts damage by dropping\n"
-	.string "rocks, it also lowers SPEED.\p"
-	.string "If you use a TM, it instantly teaches\n"
-	.string "the move to a POKéMON.\p"
-	.string "Remember, a TM can be used only once,\n"
-	.string "so think before you use it.$"
+RustboroCity_Gym_Text_AnvilIntro:
+	.string "Oh. A challenger.\n"
+	.string "Sorry. I was reviewing budget reports.\p"
+	.string "I ’m ANVIL. Mayor. Gym Leader.\n"
+	.string "Insomniac. Pick the title you like.\p"
+	.string "The GYM BADGE is also a LEVEL 1\n"
+	.string "SECURITY CLEARANCE for the RESONANCE\l"
+	.string "ENERGY grid.\p"
+	.string "Do not think about that too hard.\n"
+	.string "I did not, and look at me.\p"
+	.string "Let ’s battle. I could use something\n"
+	.string "that makes sense for five minutes.$"
 
-RustboroCity_Gym_Text_RoxannePostBattle:
-	.string "Since you are so strong, you should\n"
-	.string "challenge other GYM LEADERS.\p"
-	.string "By battling many TRAINERS, you should\n"
-	.string "learn many things.$"
+RustboroCity_Gym_Text_AnvilDefeat:
+	.string "Good. That was good.\n"
+	.string "I needed that.$"
+
+RustboroCity_Gym_Text_ReceivedForgeBadge:
+	.string "{PLAYER} received the FORGE BADGE\n"
+	.string "from ANVIL.$"
+
+RustboroCity_Gym_Text_ForgeBadgeInfo:
+	.string "The FORGE BADGE. Wear it well.\p"
+	.string "POKéMON up to level 30 will obey\n"
+	.string "you, and you now have LEVEL 1\l"
+	.string "ACCESS to RESONANCE ENERGY\l"
+	.string "facilities.\p"
+	.string "Please take this, too.$"
+
+RustboroCity_Gym_Text_ExplainTM:
+	.string "That TM contains IRON TAIL.\n"
+	.string "A steel tail whip. Hits hard.\l"
+	.string "Does what it says on the tin.$"
+
+@ -- Anvil post-battle conspiracy scene --
+
+RustboroCity_Gym_Text_AnvilConspiracy1:
+	.string "Kid. Can I ask you something\n"
+	.string "off the record?\p"
+	.string "The BUREAU has been increasing power\n"
+	.string "output demands every quarter.\p"
+	.string "The STEEL MILL cannot keep up.\n"
+	.string "They keep saying they have\l"
+	.string "“new sources” of energy but will\l"
+	.string "not tell me what.$"
+
+RustboroCity_Gym_Text_AnvilConspiracy2:
+	.string "If you make it to MT. SPITE,\n"
+	.string "and I think you will, look into\l"
+	.string "what they are doing there.\p"
+	.string "I cannot. I am the mayor.\n"
+	.string "I am compromised.\p"
+	.string "But you are just a kid with a badge.\n"
+	.string "Nobody watches the kids.$"
+
+RustboroCity_Gym_Text_AnvilConspiracy3:
+	.string "Forget I said anything.\p"
+	.string "Good luck out there.\n"
+	.string "Get some sleep.\p"
+	.string "One of us should.$"
+
+RustboroCity_Gym_Text_AnvilPostBattle:
+	.string "You have the FORGE BADGE.\n"
+	.string "The north route leads to\l"
+	.string "THE UNDERLAKE.\p"
+	.string "Be careful down there.\n"
+	.string "The readings are unstable.$"
+
+@ -- Gym Statues --
 
 RustboroCity_Gym_Text_GymStatue:
-	.string "RUSTBORO CITY POKéMON GYM$"
+	.string "FERRO CITY POKéMON GYM$"
 
 RustboroCity_Gym_Text_GymStatueCertified:
-	.string "RUSTBORO CITY POKéMON GYM\p"
-	.string "ROXANNE'S CERTIFIED TRAINERS:\n"
+	.string "FERRO CITY POKéMON GYM\p"
+	.string "ANVIL ’S CERTIFIED TRAINERS:\n"
 	.string "{PLAYER}$"
-
-RustboroCity_Gym_Text_RoxanneRegisterCall:
-	.string "… … … … … …\n"
-	.string "… … … … … Beep!\p"
-	.string "ROXANNE: Oh, hello, {PLAYER}?\n"
-	.string "This is ROXANNE of RUSTBORO CITY.\p"
-	.string "I heard from BRAWLY that you're\n"
-	.string "moving up through the ranks of\l"
-	.string "TRAINERS at an incredible clip.\p"
-	.string "Well, I'd rather not think that\n"
-	.string "I can't beat you.\p"
-	.string "I promise, I will shape up my GYM\n"
-	.string "so that you may challenge us again.\p"
-	.string "I hope you'll be looking forward to\n"
-	.string "that occasion as much as me!\p"
-	.string "… … … … … …\n"
-	.string "… … … … … Click!$"
-
-RustboroCity_Gym_Text_RegisteredRoxanne:
-	.string "Registered GYM LEADER ROXANNE\n"
-	.string "in the POKéNAV.$"
-
-RustboroCity_Gym_Text_RoxannePreRematch:
-	.string "ROXANNE: I'm so glad to see you again.\n"
-	.string "I'm ROXANNE, the GYM LEADER here.\p"
-	.string "I'm sure we've both experienced many\n"
-	.string "battles since we last met.\p"
-	.string "I would like to see how much better\n"
-	.string "we've become. Let us battle!$"
-
-RustboroCity_Gym_Text_RoxanneRematchDefeat:
-	.string "Grr…\n"
-	.string "Again, I have lost…$"
-
-RustboroCity_Gym_Text_RoxannePostRematch:
-	.string "ROXANNE: I still have much to learn\n"
-	.string "when it comes to battling POKéMON.\p"
-	.string "That awareness makes me love battling\n"
-	.string "all that much more!$"
-
-RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
-	.string "ROXANNE: I'm so glad to see you again.\n"
-	.string "I'm ROXANNE, the GYM LEADER here.\p"
-	.string "I'm sure we've both experienced many\n"
-	.string "battles since we last met.\p"
-	.string "I would like to see how much better\n"
-	.string "we've become…\p"
-	.string "Oh, no…\n"
-	.string "You only have one POKéMON with you?\p"
-	.string "Please return with at least one more\n"
-	.string "POKéMON.$"

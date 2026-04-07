@@ -112,6 +112,7 @@ gStdScripts_End::
 	.include "data/maps/MossdeepCity/scripts.inc"
 	.include "data/maps/SootopolisCity/scripts.inc"
 	.include "data/maps/EverGrandeCity/scripts.inc"
+	.include "data/maps/Nulltown/scripts.inc"
 	.include "data/maps/LittlerootTown/scripts.inc"
 	.include "data/maps/OldaleTown/scripts.inc"
 	.include "data/maps/DewfordTown/scripts.inc"
@@ -160,6 +161,12 @@ gStdScripts_End::
 	.include "data/maps/Underwater_Route129/scripts.inc"
 	.include "data/maps/Underwater_Route105/scripts.inc"
 	.include "data/maps/Underwater_Route125/scripts.inc"
+	.include "data/maps/Nulltown_PlayersHouse_1F/scripts.inc"
+	.include "data/maps/Nulltown_PlayersHouse_2F/scripts.inc"
+	.include "data/maps/Nulltown_QuinsHouse_1F/scripts.inc"
+	.include "data/maps/Nulltown_QuinsHouse_2F/scripts.inc"
+	.include "data/maps/Nulltown_ProfessorThornsLab/scripts.inc"
+	.include "data/maps/LostClearing/scripts.inc"
 	.include "data/maps/LittlerootTown_BrendansHouse_1F/scripts.inc"
 	.include "data/maps/LittlerootTown_BrendansHouse_2F/scripts.inc"
 	.include "data/maps/LittlerootTown_MaysHouse_1F/scripts.inc"
@@ -813,7 +820,18 @@ Common_EventScript_NameReceivedPartyMon::
 	fadescreen FADE_TO_BLACK
 	special ChangePokemonNickname
 	waitstate
+	specialvar VAR_RESULT, IsPartyMonNicknamed
+	goto_if_eq VAR_RESULT, TRUE, Common_EventScript_NameReceivedPartyMon_Done
+	msgbox Common_Text_MustNicknameMon, MSGBOX_DEFAULT
+	goto Common_EventScript_NameReceivedPartyMon
+	end
+
+Common_EventScript_NameReceivedPartyMon_Done::
 	return
+
+Common_Text_MustNicknameMon:
+	.string "This is a NUZLOCKE. You MUST give\n"
+	.string "your POKéMON a nickname. Try again.$"
 
 Common_EventScript_PlayerHandedOverTheItem::
 	bufferitemname STR_VAR_1, VAR_0x8004
@@ -1057,3 +1075,9 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+
+EventScript_DebugShowTile::
+	lockall
+	msgbox gStringVar4, MSGBOX_DEFAULT
+	releaseall
+	end

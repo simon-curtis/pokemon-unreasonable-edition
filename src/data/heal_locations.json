@@ -79,6 +79,18 @@
       "y": 9
     },
     {
+      "id": "HEAL_LOCATION_NULLTOWN_PLAYERS_HOUSE_2F",
+      "map": "MAP_NULLTOWN_PLAYERS_HOUSE_2F",
+      "x": 4,
+      "y": 2
+    },
+    {
+      "id": "HEAL_LOCATION_NULLTOWN",
+      "map": "MAP_NULLTOWN",
+      "x": 5,
+      "y": 9
+    },
+    {
       "id": "HEAL_LOCATION_OLDALE_TOWN",
       "map": "MAP_OLDALE_TOWN",
       "x": 6,
