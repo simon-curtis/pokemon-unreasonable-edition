@@ -912,7 +912,16 @@ static void SaveSelectedParty(void)
     {
         u16 monId = gSaveBlock2Ptr->frontier.selectedPartyMons[i] - 1;
         if (monId < PARTY_SIZE)
-            gSaveBlock1Ptr->playerParty[gSaveBlock2Ptr->frontier.selectedPartyMons[i] - 1] = gPlayerParty[i];
+        {
+            u16 hp = GetMonData(&gPlayerParty[i], MON_DATA_HP);
+            /* Nuzlocke: restore HP of Pokemon that fainted in Frontier */
+            if (hp == 0)
+            {
+                u16 savedHp = GetMonData(&gSaveBlock1Ptr->playerParty[monId], MON_DATA_HP);
+                SetMonData(&gPlayerParty[i], MON_DATA_HP, &savedHp);
+            }
+            gSaveBlock1Ptr->playerParty[monId] = gPlayerParty[i];
+        }
     }
 }
 

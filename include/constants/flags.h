@@ -43,33 +43,36 @@
 #define TEMP_FLAGS_END   FLAG_TEMP_1F
 #define NUM_TEMP_FLAGS   (TEMP_FLAGS_END - TEMP_FLAGS_START + 1)
 
-#define FLAG_UNUSED_0x020    0x20 // Unused Flag
-#define FLAG_UNUSED_0x021    0x21 // Unused Flag
-#define FLAG_UNUSED_0x022    0x22 // Unused Flag
-#define FLAG_UNUSED_0x023    0x23 // Unused Flag
-#define FLAG_UNUSED_0x024    0x24 // Unused Flag
-#define FLAG_UNUSED_0x025    0x25 // Unused Flag
-#define FLAG_UNUSED_0x026    0x26 // Unused Flag
-#define FLAG_UNUSED_0x027    0x27 // Unused Flag
-#define FLAG_UNUSED_0x028    0x28 // Unused Flag
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
-#define FLAG_UNUSED_0x02A    0x2A // Unused Flag
-#define FLAG_UNUSED_0x02B    0x2B // Unused Flag
-#define FLAG_UNUSED_0x02C    0x2C // Unused Flag
-#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
-#define FLAG_UNUSED_0x033    0x33 // Unused Flag
-#define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
-#define FLAG_UNUSED_0x038    0x38 // Unused Flag
-#define FLAG_UNUSED_0x039    0x39 // Unused Flag
-#define FLAG_UNUSED_0x03A    0x3A // Unused Flag
+#define FLAG_NUZLOCKE_ACTIVE 0x20 // Set when player receives first Poke Balls; enables Nuzlocke catch restriction
+// Nulltown flags
+#define FLAG_VISITED_NULLTOWN                   0x21
+#define FLAG_HIDE_NULLTOWN_TRUCK                0x22
+#define FLAG_HIDE_NULLTOWN_MOM_OUTSIDE          0x23
+#define FLAG_HIDE_NULLTOWN_QUIN                 0x24
+#define FLAG_HIDE_NULLTOWN_VIGOROTH             0x25
+#define FLAG_HIDE_NULLTOWN_STARTER_BALL_1       0x26
+#define FLAG_HIDE_NULLTOWN_STARTER_BALL_2       0x27
+#define FLAG_HIDE_NULLTOWN_STARTER_BALL_3       0x28
+#define FLAG_NULLTOWN_RECEIVED_STARTER          0x29
+#define FLAG_NULLTOWN_RECEIVED_POKEDEX          0x2A
+#define FLAG_NULLTOWN_MET_QUIN                  0x2B
+#define FLAG_NULLTOWN_POTION_OBTAINED           0x2C
+// Route N-1 NPC item gift flags
+#define FLAG_RECEIVED_ROUTE_N1_POTION_NPC    0x2D
+#define FLAG_RECEIVED_ROUTE_N1_ORAN_BERRY    0x2E
+#define FLAG_RECEIVED_ROUTE_N1_REPEL         0x2F
+#define FLAG_RECEIVED_ROUTE_N1_ANTIDOTE_NPC  0x30
+#define FLAG_RECEIVED_ROUTE_N1_GREAT_BALL    0x31
+#define FLAG_NULLTOWN_SEEN_SCREAMER              0x32
+#define FLAG_NULLTOWN_HIDE_SCREAMER              0x33
+#define FLAG_NULLTOWN_BEEN_TO_DOOR 0x34
+#define FLAG_NULLTOWN_TOOK_BONUS_STARTER 0x35
+// Ferro City flags
+#define FLAG_FERRO_DEFEATED_ANVIL            0x36
+#define FLAG_FERRO_DEFEATED_QUIN_2           0x37
+#define FLAG_FERRO_ANVIL_POSTGAME            0x38
+#define FLAG_HIDE_FERRO_QUIN                 0x39
+#define FLAG_FERRO_MILL_ACCESS               0x3A
 #define FLAG_UNUSED_0x03B    0x3B // Unused Flag
 #define FLAG_UNUSED_0x03C    0x3C // Unused Flag
 #define FLAG_UNUSED_0x03D    0x3D // Unused Flag
@@ -655,6 +658,7 @@
 #define FLAG_HIDDEN_ITEM_NAVEL_ROCK_TOP_SACRED_ASH           (FLAG_HIDDEN_ITEMS_START + 0x6D)
 #define FLAG_HIDDEN_ITEM_ROUTE_123_RARE_CANDY                (FLAG_HIDDEN_ITEMS_START + 0x6E)
 #define FLAG_HIDDEN_ITEM_ROUTE_105_BIG_PEARL                 (FLAG_HIDDEN_ITEMS_START + 0x6F)
+#define FLAG_HIDDEN_ITEM_ROUTE_N1_ANTIDOTE                  (FLAG_HIDDEN_ITEMS_START + 0x70)
 
 #define FLAG_UNUSED_0x264  0x264 // Unused Flag
 #define FLAG_UNUSED_0x265  0x265 // Unused Flag
@@ -1221,9 +1225,8 @@
 #define FLAG_ITEM_MAGMA_HIDEOUT_4F_MAX_REVIVE                       0x490
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_EAST_NUGGET                     0x491
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL                  0x492
-
-#define FLAG_UNUSED_0x493                                           0x493 // Unused Flag
-#define FLAG_UNUSED_0x494                                           0x494 // Unused Flag
+#define FLAG_ITEM_ROUTE_N1_POTION                                   0x493
+#define FLAG_ITEM_ROUTE_N1_POKE_BALL                                0x494
 #define FLAG_UNUSED_0x495                                           0x495 // Unused Flag
 #define FLAG_UNUSED_0x496                                           0x496 // Unused Flag
 #define FLAG_UNUSED_0x497                                           0x497 // Unused Flag

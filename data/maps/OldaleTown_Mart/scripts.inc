@@ -53,16 +53,25 @@ OldaleTown_Mart_EventScript_Boy::
 	end
 
 OldaleTown_Mart_Text_PokeBallsAreSoldOut:
-	.string "The clerk says they're all sold out.\n"
-	.string "I can't buy any POKé BALLS.$"
+	.string "Supply chain issues. The BUREAU\n"
+	.string "redirected our POKé BALL shipment\l"
+	.string "to some facility up north.\p"
+	.string "They said it was “urgent.”\n"
+	.string "Everything they do is urgent.$"
 
 OldaleTown_Mart_Text_ImGoingToBuyPokeBalls:
-	.string "I'm going to buy a bunch of POKé BALLS\n"
-	.string "and catch a bunch of POKéMON!$"
+	.string "POKé BALLS are back in stock!\n"
+	.string "The BUREAU released the shipment\l"
+	.string "after MAYOR ANVIL filed a complaint.\p"
+	.string "The complaint was three pages.\n"
+	.string "The first page was just the word\l"
+	.string "“PLEASE.”$"
 
 OldaleTown_Mart_Text_RestoreHPWithPotion:
-	.string "If a POKéMON gets hurt and loses its HP\n"
-	.string "and faints, it won't be able to battle.\p"
-	.string "To prevent your POKéMON from fainting,\n"
-	.string "restore its HP with a POTION.$"
+	.string "Stock up on POTIONS before heading\n"
+	.string "to THE UNDERLAKE. That cave is no\l"
+	.string "joke.\p"
+	.string "The RESONANCE ENERGY readings down\n"
+	.string "there are all over the place.\l"
+	.string "Makes the POKéMON twitchy.$"
 

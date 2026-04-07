@@ -28,12 +28,21 @@
 #include "trainer_see.h"
 #include "trainer_hill.h"
 #include "wild_encounter.h"
+#include "field_message_box.h"
+#include "string_util.h"
+#include "fieldmap.h"
+#include "constants/characters.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/field_poison.h"
 #include "constants/map_types.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
+
+static const u8 gText_DebugTileCol[] = _("Tile: col ");
+static const u8 gText_DebugTileRow[] = _(", row ");
+
+extern const u8 EventScript_DebugShowTile[];
 
 static EWRAM_DATA u8 sWildEncounterImmunitySteps = 0;
 static EWRAM_DATA u16 sPrevMetatileBehavior = 0;
@@ -187,6 +196,23 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     }
     if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
         return TRUE;
+    if (JOY_NEW(R_BUTTON))
+    {
+        s16 px, py;
+        u8 *ptr;
+
+        PlayerGetDestCoords(&px, &py);
+        px -= MAP_OFFSET;
+        py -= MAP_OFFSET;
+        ptr = gStringVar4;
+        ptr = StringCopy(ptr, gText_DebugTileCol);
+        ptr = ConvertIntToDecimalStringN(ptr, px, STR_CONV_MODE_LEFT_ALIGN, 3);
+        ptr = StringCopy(ptr, gText_DebugTileRow);
+        ptr = ConvertIntToDecimalStringN(ptr, py, STR_CONV_MODE_LEFT_ALIGN, 3);
+        *ptr++ = EOS;
+        ScriptContext_SetupScript(EventScript_DebugShowTile);
+        return TRUE;
+    }
 
     return FALSE;
 }

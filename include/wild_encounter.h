@@ -36,5 +36,12 @@ void FishingWildEncounter(u8 rod);
 u16 GetLocalWildMon(bool8 *isWaterMon);
 u16 GetLocalWaterMon(void);
 bool8 UpdateRepelCounter(void);
+bool8 NuzlockeIsEncounterLocked(u8 encounterType);
+void NuzlockeSetEncounterFlag(u8 encounterType, u16 species);
+bool8 NuzlockeAreBallsBlocked(void);
+void NuzlockeSetCaughtFlag(void);
+bool8 NuzlockeHasCaughtOnRoute(void);
+u16 NuzlockeGetFirstSpecies(void);
+bool8 NuzlockeIsFirstEncounter(void);
 
 #endif // GUARD_WILD_ENCOUNTER_H

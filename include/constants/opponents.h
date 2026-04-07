@@ -856,12 +856,27 @@
 #define TRAINER_LEAF                        852
 #define TRAINER_BRENDAN_PLACEHOLDER         853
 #define TRAINER_MAY_PLACEHOLDER             854
+#define TRAINER_KYLE                        855
+#define TRAINER_PENNY                       856
+#define TRAINER_BRAD                        857
+#define TRAINER_TRIXIE                      858
+#define TRAINER_DAVE                        859
+#define TRAINER_STERLING                    860
+#define TRAINER_MARGE                       861
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
-//       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
-//       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
+// Ferro City trainers
+#define TRAINER_FERRO_DALE                  862
+#define TRAINER_FERRO_PORTIA                863
+#define TRAINER_FERRO_RIVET                 864
+#define TRAINER_ANVIL_1                     865
+#define TRAINER_QUIN_FERRO_FIRE             866 // Quin has Cyndaquil (player chose Chikorita)
+#define TRAINER_QUIN_FERRO_WATER            867 // Quin has Totodile (player chose Cyndaquil)
+#define TRAINER_QUIN_FERRO_GRASS            868 // Quin has Chikorita (player chose Totodile)
 
-#define TRAINERS_COUNT                      855
-#define MAX_TRAINERS_COUNT                  864
+// NOTE: MAX_TRAINERS_COUNT expanded from 864 to 880 for ROM hack trainer additions.
+//       SYSTEM_FLAGS in flags.h auto-shifts since it's relative to TRAINER_FLAGS_END.
+
+#define TRAINERS_COUNT                      869
+#define MAX_TRAINERS_COUNT                  880
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

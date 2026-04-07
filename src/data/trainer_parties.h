@@ -12434,3 +12434,182 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayLinkPlaceholder[] = {
     .species = SPECIES_KYOGRE,
     }
 };
+
+static const struct TrainerMonNoItemDefaultMoves sParty_Kyle[] = {
+    {
+    .iv = 0,
+    .lvl = 3,
+    .species = SPECIES_WURMPLE,
+    },
+    {
+    .iv = 0,
+    .lvl = 5,
+    .species = SPECIES_CATERPIE,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_Penny[] = {
+    {
+    .iv = 0,
+    .lvl = 4,
+    .species = SPECIES_ZIGZAGOON,
+    },
+    {
+    .iv = 0,
+    .lvl = 6,
+    .species = SPECIES_POOCHYENA,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_BradRouteN1[] = {
+    {
+    .iv = 0,
+    .lvl = 4,
+    .species = SPECIES_TAILLOW,
+    },
+    {
+    .iv = 0,
+    .lvl = 3,
+    .species = SPECIES_ZIGZAGOON,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TrixieRouteN1[] = {
+    {
+    .iv = 0,
+    .lvl = 5,
+    .species = SPECIES_SKITTY,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_Dave[] = {
+    {
+    .iv = 0,
+    .lvl = 3,
+    .species = SPECIES_POOCHYENA,
+    },
+    {
+    .iv = 0,
+    .lvl = 4,
+    .species = SPECIES_WURMPLE,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_Sterling[] = {
+    {
+    .iv = 10,
+    .lvl = 6,
+    .species = SPECIES_ZIGZAGOON,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_Marge[] = {
+    {
+    .iv = 0,
+    .lvl = 4,
+    .species = SPECIES_LOTAD,
+    },
+    {
+    .iv = 0,
+    .lvl = 4,
+    .species = SPECIES_SHROOMISH,
+    }
+};
+
+/* Ferro City Gym trainers */
+
+static const struct TrainerMonNoItemDefaultMoves sParty_FerroDale[] = {
+    {
+    .iv = 10,
+    .lvl = 10,
+    .species = SPECIES_MAGNEMITE,
+    },
+    {
+    .iv = 10,
+    .lvl = 12,
+    .species = SPECIES_ARON,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_FerroPortia[] = {
+    {
+    .iv = 15,
+    .lvl = 11,
+    .species = SPECIES_BELDUM,
+    },
+    {
+    .iv = 15,
+    .lvl = 13,
+    .species = SPECIES_MAWILE,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_FerroRivet[] = {
+    {
+    .iv = 20,
+    .lvl = 13,
+    .species = SPECIES_ONIX,
+    }
+};
+
+static const struct TrainerMonNoItemCustomMoves sParty_Anvil1[] = {
+    {
+    .iv = 30,
+    .lvl = 12,
+    .species = SPECIES_ARON,
+    .moves = {MOVE_HEADBUTT, MOVE_METAL_CLAW, MOVE_MUD_SLAP, MOVE_HARDEN}
+    },
+    {
+    .iv = 30,
+    .lvl = 13,
+    .species = SPECIES_MAGNEMITE,
+    .moves = {MOVE_THUNDER_SHOCK, MOVE_SUPERSONIC, MOVE_METAL_SOUND, MOVE_TACKLE}
+    },
+    {
+    .iv = 50,
+    .lvl = 15,
+    .species = SPECIES_LAIRON,
+    .moves = {MOVE_IRON_DEFENSE, MOVE_ROCK_TOMB, MOVE_METAL_CLAW, MOVE_HEADBUTT}
+    }
+};
+
+/* Quin rival battle 2 — starter advantage + Taillow */
+
+static const struct TrainerMonNoItemDefaultMoves sParty_QuinFerroFire[] = {
+    {
+    .iv = 20,
+    .lvl = 13,
+    .species = SPECIES_CYNDAQUIL,
+    },
+    {
+    .iv = 15,
+    .lvl = 12,
+    .species = SPECIES_TAILLOW,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_QuinFerroWater[] = {
+    {
+    .iv = 20,
+    .lvl = 13,
+    .species = SPECIES_TOTODILE,
+    },
+    {
+    .iv = 15,
+    .lvl = 12,
+    .species = SPECIES_TAILLOW,
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_QuinFerroGrass[] = {
+    {
+    .iv = 20,
+    .lvl = 13,
+    .species = SPECIES_CHIKORITA,
+    },
+    {
+    .iv = 15,
+    .lvl = 12,
+    .species = SPECIES_TAILLOW,
+    }
+};

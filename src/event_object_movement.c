@@ -1674,6 +1674,91 @@ void TrySpawnObjectEvents(s16 cameraX, s16 cameraY)
     }
 }
 
+void TrySpawnConnectionObjectEvents(s16 cameraX, s16 cameraY)
+{
+    s32 i;
+    s16 left, right, top, bottom;
+    s16 currentWidth, currentHeight;
+    s32 count;
+    const struct MapConnection *conn;
+
+    if (!gMapHeader.connections)
+        return;
+
+    left = gSaveBlock1Ptr->pos.x - 2;
+    right = gSaveBlock1Ptr->pos.x + MAP_OFFSET_W + 2;
+    top = gSaveBlock1Ptr->pos.y;
+    bottom = gSaveBlock1Ptr->pos.y + MAP_OFFSET_H + 2;
+    currentWidth = gMapHeader.mapLayout->width;
+    currentHeight = gMapHeader.mapLayout->height;
+    count = gMapHeader.connections->count;
+    conn = gMapHeader.connections->connections;
+
+    for (i = 0; i < count; i++, conn++)
+    {
+        const struct MapHeader *connHeader;
+        s16 connWidth, connHeight, dx, dy;
+        u8 j, objCount;
+        const struct ObjectEventTemplate *templates;
+
+        connHeader = GetMapHeaderFromConnection(conn);
+        if (!connHeader || !connHeader->events)
+            continue;
+
+        connWidth = connHeader->mapLayout->width;
+        connHeight = connHeader->mapLayout->height;
+
+        switch (conn->direction)
+        {
+        case CONNECTION_NORTH:
+            dx = conn->offset;
+            dy = -connHeight;
+            if (top > MAP_OFFSET - 1)
+                continue;
+            break;
+        case CONNECTION_SOUTH:
+            dx = conn->offset;
+            dy = currentHeight;
+            if (bottom < currentHeight + MAP_OFFSET)
+                continue;
+            break;
+        case CONNECTION_WEST:
+            dx = -connWidth;
+            dy = conn->offset;
+            if (left > MAP_OFFSET - 1)
+                continue;
+            break;
+        case CONNECTION_EAST:
+            dx = currentWidth;
+            dy = conn->offset;
+            if (right < currentWidth + MAP_OFFSET)
+                continue;
+            break;
+        default:
+            continue;
+        }
+
+        objCount = connHeader->events->objectEventCount;
+        templates = connHeader->events->objectEvents;
+
+        for (j = 0; j < objCount; j++)
+        {
+            s16 npcX = templates[j].x + dx + MAP_OFFSET;
+            s16 npcY = templates[j].y + dy + MAP_OFFSET;
+
+            if (npcX >= left && npcX <= right
+             && npcY >= top && npcY <= bottom
+             && !FlagGet(templates[j].flagId))
+            {
+                struct ObjectEventTemplate adjusted = templates[j];
+                adjusted.x += dx;
+                adjusted.y += dy;
+                TrySpawnObjectEventTemplate(&adjusted, conn->mapNum, conn->mapGroup, cameraX, cameraY);
+            }
+        }
+    }
+}
+
 void RemoveObjectEventsOutsideView(void)
 {
     u8 i, j;
@@ -2218,6 +2303,7 @@ void UpdateObjectEventsForCameraUpdate(s16 x, s16 y)
 {
     UpdateObjectEventCoordsForCameraUpdate();
     TrySpawnObjectEvents(x, y);
+    TrySpawnConnectionObjectEvents(x, y);
     RemoveObjectEventsOutsideView();
 }
 

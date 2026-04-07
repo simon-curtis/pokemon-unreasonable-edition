@@ -1,3 +1,11 @@
+Route101_EventScript_ItemPotion::
+	finditem ITEM_POTION
+	end
+
+Route101_EventScript_ItemPokeBall::
+	finditem ITEM_POKE_BALL, 3
+	end
+
 Route102_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
@@ -151,7 +159,7 @@ Route117_EventScript_ItemGreatBall::
 	end
 
 Route117_EventScript_ItemRevive::
-	finditem ITEM_REVIVE
+	finditem ITEM_ELIXIR
 	end
 
 Route118_EventScript_ItemHyperPotion::
@@ -207,7 +215,7 @@ Route120_EventScript_ItemNestBall::
 	end
 
 Route120_EventScript_ItemRevive::
-	finditem ITEM_REVIVE
+	finditem ITEM_ELIXIR
 	end
 
 Route121_EventScript_ItemCarbos::
@@ -215,7 +223,7 @@ Route121_EventScript_ItemCarbos::
 	end
 
 Route121_EventScript_ItemRevive::
-	finditem ITEM_REVIVE
+	finditem ITEM_ELIXIR
 	end
 
 Route121_EventScript_ItemZinc::
@@ -239,7 +247,7 @@ Route123_EventScript_ItemPPUp::
 	end
 
 Route123_EventScript_ItemRevivalHerb::
-	finditem ITEM_REVIVAL_HERB
+	finditem ITEM_ENERGY_ROOT
 	end
 
 Route124_EventScript_ItemRedShard::
@@ -291,7 +299,7 @@ Route133_EventScript_ItemStarPiece::
 	end
 
 Route133_EventScript_ItemMaxRevive::
-	finditem ITEM_MAX_REVIVE
+	finditem ITEM_MAX_ELIXIR
 	end
 
 Route134_EventScript_ItemCarbos::
@@ -303,7 +311,7 @@ Route134_EventScript_ItemStarPiece::
 	end
 
 PetalburgCity_EventScript_ItemMaxRevive::
-	finditem ITEM_MAX_REVIVE
+	finditem ITEM_MAX_ELIXIR
 	end
 
 PetalburgCity_EventScript_ItemEther::
@@ -435,7 +443,7 @@ AbandonedShip_Room_B1F_EventScript_ItemTMIceBeam::
 	end
 
 AbandonedShip_Rooms2_1F_EventScript_ItemRevive::
-	finditem ITEM_REVIVE
+	finditem ITEM_ELIXIR
 	end
 
 AbandonedShip_CaptainsOffice_EventScript_ItemStorageKey::
@@ -471,7 +479,7 @@ SafariZone_North_EventScript_ItemCalcium::
 	end
 
 SafariZone_Southwest_EventScript_ItemMaxRevive::
-	finditem ITEM_MAX_REVIVE
+	finditem ITEM_MAX_ELIXIR
 	end
 
 SafariZone_Northeast_EventScript_ItemNugget::
@@ -651,7 +659,7 @@ MagmaHideout_3F_2R_EventScript_ItemPPMax::
 	end
 
 MagmaHideout_4F_EventScript_ItemMaxRevive::
-	finditem ITEM_MAX_REVIVE
+	finditem ITEM_MAX_ELIXIR
 	end
 
 MagmaHideout_3F_3R_EventScript_ItemEscapeRope::

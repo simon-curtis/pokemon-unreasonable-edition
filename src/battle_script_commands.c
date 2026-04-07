@@ -39,6 +39,7 @@
 #include "pokenav.h"
 #include "menu_specialized.h"
 #include "data.h"
+#include "wild_encounter.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
@@ -795,10 +796,10 @@ static const u16 sPickupItems[] =
     ITEM_HYPER_POTION,
     ITEM_RARE_CANDY,
     ITEM_PROTEIN,
-    ITEM_REVIVE,
+    ITEM_ELIXIR,
     ITEM_HP_UP,
     ITEM_FULL_RESTORE,
-    ITEM_MAX_REVIVE,
+    ITEM_MAX_ELIXIR,
     ITEM_PP_UP,
     ITEM_MAX_ELIXIR,
 };
@@ -9918,6 +9919,20 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr = BattleScript_TrainerBallBlock;
     }
+    else if (NuzlockeAreBallsBlocked())
+    {
+        /* Nuzlocke: refund the ball and show context-dependent message */
+        AddBagItem(gLastUsedItem, 1);
+        if (NuzlockeHasCaughtOnRoute())
+        {
+            gBattlescriptCurrInstr = BattleScript_NuzlockeAlreadyCaught;
+        }
+        else
+        {
+            PREPARE_SPECIES_BUFFER(gBattleTextBuff1, NuzlockeGetFirstSpecies());
+            gBattlescriptCurrInstr = BattleScript_NuzlockeWrongSpecies;
+        }
+    }
     else if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
     {
         BtlController_EmitBallThrowAnim(B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
@@ -10078,6 +10093,7 @@ static void Cmd_givecaughtmon(void)
     gBattleResults.caughtMonSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES, NULL);
     GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleResults.caughtMonNick);
     gBattleResults.caughtMonBall = GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_POKEBALL, NULL);
+    NuzlockeSetCaughtFlag();
 
     gBattlescriptCurrInstr++;
 }
@@ -10222,45 +10238,11 @@ static void Cmd_trygivecaughtmonnick(void)
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
-        HandleBattleWindow(YESNOBOX_X_Y, 0);
-        BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
-        gBattleCommunication[MULTIUSE_STATE]++;
-        gBattleCommunication[CURSOR_POSITION] = 0;
-        BattleCreateYesNoCursorAt(0);
+        /* Nuzlocke: nicknaming is mandatory — skip yes/no prompt */
+        gBattleCommunication[MULTIUSE_STATE] = 2;
+        BeginFastPaletteFade(3);
         break;
     case 1:
-        if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != 0)
-        {
-            PlaySE(SE_SELECT);
-            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
-            gBattleCommunication[CURSOR_POSITION] = 0;
-            BattleCreateYesNoCursorAt(0);
-        }
-        if (JOY_NEW(DPAD_DOWN) && gBattleCommunication[CURSOR_POSITION] == 0)
-        {
-            PlaySE(SE_SELECT);
-            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
-            gBattleCommunication[CURSOR_POSITION] = 1;
-            BattleCreateYesNoCursorAt(1);
-        }
-        if (JOY_NEW(A_BUTTON))
-        {
-            PlaySE(SE_SELECT);
-            if (gBattleCommunication[CURSOR_POSITION] == 0)
-            {
-                gBattleCommunication[MULTIUSE_STATE]++;
-                BeginFastPaletteFade(3);
-            }
-            else
-            {
-                gBattleCommunication[MULTIUSE_STATE] = 4;
-            }
-        }
-        else if (JOY_NEW(B_BUTTON))
-        {
-            PlaySE(SE_SELECT);
-            gBattleCommunication[MULTIUSE_STATE] = 4;
-        }
         break;
     case 2:
         if (!gPaletteFade.active)

@@ -16,6 +16,7 @@
 #include "constants/pokemon.h"
 #include "constants/easy_chat.h"
 #include "constants/trainer_hill.h"
+#include "constants/wild_encounter.h"
 
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
@@ -1064,7 +1065,9 @@ struct SaveBlock1
     /*0x31DC*/ struct Roamer roamer;
     /*0x31F8*/ struct EnigmaBerry enigmaBerry;
     /*0x322C*/ struct MysteryGiftSave mysteryGift;
-    /*0x3598*/ u8 unused_3598[0x180];
+    /*0x3598*/ u16 nuzlockeFirstSpecies[WILD_MON_HEADER_COUNT];
+    /*0x3698*/ u8 nuzlockeCaughtFlags[NUZLOCKE_CAUGHT_FLAGS_SIZE];
+    /*0x36A8*/ u8 unused_36A8[0x70];
     /*0x3718*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
     /*0x3728*/ struct RamScript ramScript;
     /*0x3B14*/ struct RecordMixingGift recordMixingGift;
@@ -1075,7 +1078,8 @@ struct SaveBlock1
     /*0x3D5A*/ u8 unused_3D5A[10];
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
-    // sizeof: 0x3D88
+    /*0x3D88*/ u8 nuzlockeEncounters[NUZLOCKE_ENCOUNTERS_SIZE];
+    /* sizeof: 0x3DC8 */
 };
 
 extern struct SaveBlock1 *gSaveBlock1Ptr;

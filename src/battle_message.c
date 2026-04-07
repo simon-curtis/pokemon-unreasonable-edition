@@ -19,7 +19,9 @@
 #include "strings.h"
 #include "text.h"
 #include "trainer_hill.h"
+#include "wild_encounter.h"
 #include "window.h"
+#include "constants/flags.h"
 #include "constants/battle_dome.h"
 #include "constants/battle_string_ids.h"
 #include "constants/frontier_util.h"
@@ -71,8 +73,8 @@ static const u8 sText_AvoidedDamage[] = _("{B_DEF_NAME_WITH_PREFIX} avoided\ndam
 static const u8 sText_PkmnMakesGroundMiss[] = _("{B_DEF_NAME_WITH_PREFIX} makes GROUND\nmoves miss with {B_DEF_ABILITY}!");
 static const u8 sText_PkmnAvoidedAttack[] = _("{B_DEF_NAME_WITH_PREFIX} avoided\nthe attack!");
 static const u8 sText_ItDoesntAffect[] = _("It doesn't affect\n{B_DEF_NAME_WITH_PREFIX}…");
-static const u8 sText_AttackerFainted[] = _("{B_ATK_NAME_WITH_PREFIX}\nfainted!\p");
-static const u8 sText_TargetFainted[] = _("{B_DEF_NAME_WITH_PREFIX}\nfainted!\p");
+static const u8 sText_AttackerFainted[] = _("{B_ATK_NAME_WITH_PREFIX}\ndied!\p");
+static const u8 sText_TargetFainted[] = _("{B_DEF_NAME_WITH_PREFIX}\ndied!\p");
 static const u8 sText_PlayerGotMoney[] = _("{B_PLAYER_NAME} got ¥{B_BUFF1}\nfor winning!\p");
 static const u8 sText_PlayerWhiteout[] = _("{B_PLAYER_NAME} is out of\nusable POKéMON!\p");
 static const u8 sText_PlayerWhiteout2[] = _("{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}");
@@ -379,6 +381,9 @@ static const u8 sText_ThrewPokeblockAtPkmn[] = _("{B_PLAYER_NAME} threw a {POKEB
 static const u8 sText_OutOfSafariBalls[] = _("{PLAY_SE SE_DING_DONG}ANNOUNCER: You're out of\nSAFARI BALLS! Game over!\p");
 static const u8 sText_OpponentMon1Appeared[] = _("{B_OPPONENT_MON1_NAME} appeared!\p");
 static const u8 sText_WildPkmnAppeared[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\p");
+static const u8 sText_WildPkmnAppearedFirst[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\pFirst encounter. No pressure.\nOkay, ALL the pressure.\p");
+static const u8 sText_WildPkmnAppearedCatchable[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\pYou can still catch this one!\p");
+static const u8 sText_WildPkmnAppearedLocked[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\pThis route is cooked.\p");
 static const u8 sText_LegendaryPkmnAppeared[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\p");
 static const u8 sText_WildPkmnAppearedPause[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!{PAUSE 127}");
 static const u8 sText_TwoWildPkmnAppeared[] = _("Wild {B_OPPONENT_MON1_NAME} and\n{B_OPPONENT_MON2_NAME} appeared!\p");
@@ -463,6 +468,11 @@ static const u8 sText_WallyUsedItem[] = _("WALLY used\n{B_LAST_ITEM}!");
 static const u8 sText_Trainer1UsedItem[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME}\nused {B_LAST_ITEM}!");
 static const u8 sText_TrainerBlockedBall[] = _("The TRAINER blocked the BALL!");
 static const u8 sText_DontBeAThief[] = _("Don't be a thief!");
+static const u8 sText_NuzlockeBallBlock[] = _("You know the rules, and so do I.");
+static const u8 sText_NuzlockeAlreadyCaught[] = _("Bestie you already caught one\nhere. This route is cooked.");
+static const u8 sText_NuzlockeWrongSpecies[] = _("No cap, your first encounter\nwas {B_BUFF1}. Only {B_BUFF1}. Fr fr.");
+static const u8 sText_NuzlockeFirstEncounter[] = _("First encounter on this route!\nNo pressure. Okay, ALL the pressure.");
+static const u8 sText_NuzlockeEncounterLocked[] = _("You are locked into {B_BUFF1}\non this route. It is giving destiny.");
 static const u8 sText_ItDodgedBall[] = _("It dodged the thrown BALL!\nThis POKéMON can't be caught!");
 static const u8 sText_YouMissedPkmn[] = _("You missed the POKéMON!");
 static const u8 sText_PkmnBrokeFree[] = _("Oh, no!\nThe POKéMON broke free!");
@@ -885,6 +895,11 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNBOXLANETTESPCFULL - BATTLESTRINGS_TABLE_START] = gText_PkmnTransferredLanettesPCBoxFull,
     [STRINGID_TRAINER1WINTEXT - BATTLESTRINGS_TABLE_START] = sText_Trainer1WinText,
     [STRINGID_TRAINER2WINTEXT - BATTLESTRINGS_TABLE_START] = sText_Trainer2WinText,
+    [STRINGID_NUZLOCKEBALLBLOCK - BATTLESTRINGS_TABLE_START] = sText_NuzlockeBallBlock,
+    [STRINGID_NUZLOCKEALREADYCAUGHT - BATTLESTRINGS_TABLE_START] = sText_NuzlockeAlreadyCaught,
+    [STRINGID_NUZLOCKEWRONGSPECIES - BATTLESTRINGS_TABLE_START] = sText_NuzlockeWrongSpecies,
+    [STRINGID_NUZLOCKEFIRSTENCOUNTER - BATTLESTRINGS_TABLE_START] = sText_NuzlockeFirstEncounter,
+    [STRINGID_NUZLOCKEENCOUNTERLOCKED - BATTLESTRINGS_TABLE_START] = sText_NuzlockeEncounterLocked,
 };
 
 const u16 gMissStringIds[] =
@@ -2027,6 +2042,12 @@ void BufferStringBattle(u16 stringID)
                 stringPtr = sText_TwoWildPkmnAppeared;
             else if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
                 stringPtr = sText_WildPkmnAppearedPause;
+            else if (FlagGet(FLAG_NUZLOCKE_ACTIVE) && NuzlockeIsFirstEncounter())
+                stringPtr = sText_WildPkmnAppearedFirst;
+            else if (FlagGet(FLAG_NUZLOCKE_ACTIVE) && !NuzlockeAreBallsBlocked())
+                stringPtr = sText_WildPkmnAppearedCatchable;
+            else if (FlagGet(FLAG_NUZLOCKE_ACTIVE) && NuzlockeAreBallsBlocked())
+                stringPtr = sText_WildPkmnAppearedLocked;
             else
                 stringPtr = sText_WildPkmnAppeared;
         }

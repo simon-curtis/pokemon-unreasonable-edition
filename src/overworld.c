@@ -1539,7 +1539,7 @@ void CB2_NewGame(void)
     PlayTimeCounter_Start();
     ScriptContext_Init();
     UnlockPlayerFieldControls();
-    gFieldCallback = ExecuteTruckSequence;
+    gFieldCallback = NULL;
     gFieldCallback2 = NULL;
     DoMapLoadLoop(&gMain.state);
     SetFieldVBlankCallback();
@@ -2157,6 +2157,7 @@ static void InitObjectEventsLink(void)
     gTotalCameraPixelOffsetY = 0;
     ResetObjectEvents();
     TrySpawnObjectEvents(0, 0);
+    TrySpawnConnectionObjectEvents(0, 0);
     TryRunOnWarpIntoMapScript();
 }
 
@@ -2174,6 +2175,7 @@ static void InitObjectEventsLocal(void)
     SetPlayerAvatarTransitionFlags(player->transitionFlags);
     ResetInitialPlayerAvatarState();
     TrySpawnObjectEvents(0, 0);
+    TrySpawnConnectionObjectEvents(0, 0);
     TryRunOnWarpIntoMapScript();
 }
 

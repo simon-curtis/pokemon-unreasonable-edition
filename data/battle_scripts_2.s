@@ -110,6 +110,21 @@ BattleScript_TrainerBallBlock::
 	waitmessage B_WAIT_TIME_LONG
 	finishaction
 
+BattleScript_NuzlockeBallBlock::
+	printstring STRINGID_NUZLOCKEBALLBLOCK
+	waitmessage B_WAIT_TIME_LONG
+	finishaction
+
+BattleScript_NuzlockeAlreadyCaught::
+	printstring STRINGID_NUZLOCKEALREADYCAUGHT
+	waitmessage B_WAIT_TIME_LONG
+	finishaction
+
+BattleScript_NuzlockeWrongSpecies::
+	printstring STRINGID_NUZLOCKEWRONGSPECIES
+	waitmessage B_WAIT_TIME_LONG
+	finishaction
+
 BattleScript_PlayerUsesItem::
 	moveendcase MOVEEND_MIRROR_MOVE
 	end

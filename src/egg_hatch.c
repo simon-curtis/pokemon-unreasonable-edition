@@ -668,37 +668,17 @@ static void CB2_EggHatch(void)
             sEggHatchData->state++;
         break;
     case 8:
-        // Ready the nickname prompt
-        GetMonNickname2(&gPlayerParty[sEggHatchData->eggPartyId], gStringVar1);
-        StringExpandPlaceholders(gStringVar4, gText_NicknameHatchPrompt);
-        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar4, 0, 2, 1);
-        sEggHatchData->state++;
+        /* Nuzlocke: nicknaming is mandatory — skip yes/no prompt */
+        sEggHatchData->state = 10;
         break;
     case 9:
-        // Print the nickname prompt
-        if (!IsTextPrinterActive(sEggHatchData->windowId))
-        {
-            LoadUserWindowBorderGfx(sEggHatchData->windowId, 0x140, BG_PLTT_ID(14));
-            CreateYesNoMenu(&sYesNoWinTemplate, 0x140, 0xE, 0);
-            sEggHatchData->state++;
-        }
         break;
     case 10:
-        // Handle the nickname prompt input
-        switch (Menu_ProcessInputNoWrapClearOnChoose())
-        {
-        case 0: // Yes
-            GetMonNickname2(&gPlayerParty[sEggHatchData->eggPartyId], gStringVar3);
-            species = GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_SPECIES);
-            gender = GetMonGender(&gPlayerParty[sEggHatchData->eggPartyId]);
-            personality = GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_PERSONALITY, 0);
-            DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar3, species, gender, personality, EggHatchSetMonNickname);
-            break;
-        case 1: // No
-        case MENU_B_PRESSED:
-            sEggHatchData->state++;
-            break;
-        }
+        GetMonNickname2(&gPlayerParty[sEggHatchData->eggPartyId], gStringVar3);
+        species = GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_SPECIES);
+        gender = GetMonGender(&gPlayerParty[sEggHatchData->eggPartyId]);
+        personality = GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_PERSONALITY, 0);
+        DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar3, species, gender, personality, EggHatchSetMonNickname);
         break;
     case 11:
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);

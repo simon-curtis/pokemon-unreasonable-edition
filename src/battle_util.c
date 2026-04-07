@@ -24,6 +24,7 @@
 #include "event_data.h"
 #include "link.h"
 #include "field_weather.h"
+#include "wild_encounter.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
@@ -552,6 +553,24 @@ void HandleAction_SafariZoneBallThrow(void)
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
     gBattle_BG0_Y = 0;
+
+    if (NuzlockeAreBallsBlocked())
+    {
+        /* Nuzlocke: don't consume Safari Ball, show context message */
+        gLastUsedItem = ITEM_SAFARI_BALL;
+        if (NuzlockeHasCaughtOnRoute())
+        {
+            gBattlescriptCurrInstr = BattleScript_NuzlockeAlreadyCaught;
+        }
+        else
+        {
+            PREPARE_SPECIES_BUFFER(gBattleTextBuff1, NuzlockeGetFirstSpecies());
+            gBattlescriptCurrInstr = BattleScript_NuzlockeWrongSpecies;
+        }
+        gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
+        return;
+    }
+
     gNumSafariBalls--;
     gLastUsedItem = ITEM_SAFARI_BALL;
     gBattlescriptCurrInstr = gBattlescriptsForBallThrow[ITEM_SAFARI_BALL];

@@ -3026,6 +3026,11 @@ bool8 IsLeadMonNicknamedOrNotEnglish(void)
     return IsPartyMonNicknamedOrNotEnglish(GetLeadMonIndex());
 }
 
+bool8 IsPartyMonNicknamed(void)
+{
+    return IsPartyMonNicknamedOrNotEnglish(gSpecialVar_0x8004);
+}
+
 static void DeleteTVShowInArrayByIdx(TVShow *shows, u8 idx)
 {
     u8 i;

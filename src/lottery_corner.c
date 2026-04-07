@@ -15,7 +15,7 @@ static const u16 sLotteryPrizes[] =
 {
     ITEM_PP_UP,
     ITEM_EXP_SHARE,
-    ITEM_MAX_REVIVE,
+    ITEM_PP_MAX,
     ITEM_MASTER_BALL,
 };
 

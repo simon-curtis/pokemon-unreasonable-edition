@@ -18,6 +18,7 @@
 #include "palette.h"
 #include "party_menu.h"
 #include "pokeball.h"
+#include "pokedex.h"
 #include "pokemon.h"
 #include "random.h"
 #include "recorded_battle.h"
@@ -35,6 +36,7 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "constants/rgb.h"
+#include "battle_main.h"
 
 static void PlayerHandleGetMonData(void);
 static void PlayerHandleSetMonData(void);
@@ -1493,17 +1495,86 @@ static void MoveSelectionDisplayPpNumber(void)
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_PP_REMAINING);
 }
 
+static const u8 sText_EffSuper[] = _("Super");
+static const u8 sText_EffNotVery[] = _("Not very");
+static const u8 sText_EffNoEffect[] = _("No effect");
+
+static u8 GetMoveTypeEffectiveness(u8 moveType, u8 defType1, u8 defType2)
+{
+    u8 multiplier = TYPE_MUL_NORMAL;
+    int i = 0;
+
+    while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE)
+    {
+        if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_FORESIGHT)
+        {
+            i += 3;
+            continue;
+        }
+        if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+        {
+            if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
+                multiplier = (multiplier * TYPE_EFFECT_MULTIPLIER(i)) / TYPE_MUL_NORMAL;
+            if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
+                multiplier = (multiplier * TYPE_EFFECT_MULTIPLIER(i)) / TYPE_MUL_NORMAL;
+        }
+        i += 3;
+    }
+    return multiplier;
+}
+
 static void MoveSelectionDisplayMoveType(void)
 {
     u8 *txtPtr;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
+    u16 move;
+    u8 moveType;
+    u8 opponent;
+    u16 opponentSpecies;
+    u8 effectiveness;
 
     txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceType);
     *(txtPtr)++ = EXT_CTRL_CODE_BEGIN;
     *(txtPtr)++ = EXT_CTRL_CODE_FONT;
     *(txtPtr)++ = FONT_NORMAL;
 
-    StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type]);
+    move = moveInfo->moves[gMoveSelectionCursor[gActiveBattler]];
+    moveType = gBattleMoves[move].type;
+    txtPtr = StringCopy(txtPtr, gTypeNames[moveType]);
+
+    /* Show effectiveness if the opponent has been seen in the Pokedex */
+    opponent = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+    opponentSpecies = gBattleMons[opponent].species;
+
+    if (opponentSpecies != SPECIES_NONE
+     && GetSetPokedexFlag(SpeciesToNationalPokedexNum(opponentSpecies), FLAG_GET_SEEN))
+    {
+        effectiveness = GetMoveTypeEffectiveness(moveType,
+                            gBattleMons[opponent].types[0],
+                            gBattleMons[opponent].types[1]);
+
+        *(txtPtr)++ = CHAR_NEWLINE;
+        *(txtPtr)++ = EXT_CTRL_CODE_BEGIN;
+        *(txtPtr)++ = EXT_CTRL_CODE_COLOR;
+
+        if (effectiveness == TYPE_MUL_NO_EFFECT)
+        {
+            *(txtPtr)++ = TEXT_COLOR_LIGHT_GRAY;
+            txtPtr = StringCopy(txtPtr, sText_EffNoEffect);
+        }
+        else if (effectiveness < TYPE_MUL_NORMAL)
+        {
+            *(txtPtr)++ = TEXT_COLOR_LIGHT_GRAY;
+            txtPtr = StringCopy(txtPtr, sText_EffNotVery);
+        }
+        else if (effectiveness > TYPE_MUL_NORMAL)
+        {
+            *(txtPtr)++ = TEXT_COLOR_RED;
+            txtPtr = StringCopy(txtPtr, sText_EffSuper);
+        }
+    }
+
+    *txtPtr = EOS;
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE);
 }
 

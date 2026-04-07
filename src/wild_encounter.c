@@ -61,6 +61,8 @@ static bool8 IsAbilityAllowingEncounter(u8 level);
 
 EWRAM_DATA static u8 sWildEncountersDisabled = 0;
 EWRAM_DATA static u32 sFeebasRngValue = 0;
+EWRAM_DATA static bool8 sNuzlockeBallsBlocked = FALSE;
+EWRAM_DATA static u16 sNuzlockeCurrentSpecies = SPECIES_NONE;
 
 #include "data/wild_encounters.h"
 
@@ -614,13 +616,15 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
             {
                 if (DoMassOutbreakEncounterTest() == TRUE && SetUpMassOutbreakEncounter(WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
+                    NuzlockeSetEncounterFlag(NUZLOCKE_LAND_BIT, GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL));
                     BattleSetup_StartWildBattle();
                     return TRUE;
                 }
 
-                // try a regular wild land encounter
+                /* try a regular wild land encounter */
                 if (TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
+                    NuzlockeSetEncounterFlag(NUZLOCKE_LAND_BIT, GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL));
                     BattleSetup_StartWildBattle();
                     return TRUE;
                 }
@@ -649,10 +653,11 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                 BattleSetup_StartRoamerBattle();
                 return TRUE;
             }
-            else // try a regular surfing encounter
+            else /* try a regular surfing encounter */
             {
                 if (TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
+                    NuzlockeSetEncounterFlag(NUZLOCKE_WATER_BIT, GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL));
                     BattleSetup_StartWildBattle();
                     return TRUE;
                 }
@@ -680,6 +685,7 @@ void RockSmashWildEncounter(void)
         else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
          && TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
         {
+            NuzlockeSetEncounterFlag(NUZLOCKE_ROCK_SMASH_BIT, GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL));
             BattleSetup_StartWildBattle();
             gSpecialVar_Result = TRUE;
         }
@@ -742,6 +748,7 @@ bool8 SweetScentWildEncounter(void)
             else
                 TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, 0);
 
+            NuzlockeSetEncounterFlag(NUZLOCKE_LAND_BIT, GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL));
             BattleSetup_StartWildBattle();
             return TRUE;
         }
@@ -759,6 +766,7 @@ bool8 SweetScentWildEncounter(void)
             }
 
             TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, 0);
+            NuzlockeSetEncounterFlag(NUZLOCKE_WATER_BIT, GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL));
             BattleSetup_StartWildBattle();
             return TRUE;
         }
@@ -794,6 +802,7 @@ void FishingWildEncounter(u8 rod)
     }
     IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
     SetPokemonAnglerSpecies(species);
+    NuzlockeSetEncounterFlag(NUZLOCKE_FISHING_BIT, species);
     BattleSetup_StartWildBattle();
 }
 
@@ -845,6 +854,112 @@ u16 GetLocalWaterMon(void)
             return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
     }
     return SPECIES_NONE;
+}
+
+static u8 NuzlockeGetBits(u16 headerId)
+{
+    u8 byte = gSaveBlock1Ptr->nuzlockeEncounters[headerId / 2];
+    if (headerId & 1)
+        return (byte >> 4) & 0xF;
+    else
+        return byte & 0xF;
+}
+
+static void NuzlockeSetBit(u16 headerId, u8 bit)
+{
+    u8 shift;
+    u8 idx = headerId / 2;
+
+    if (headerId & 1)
+        shift = 4;
+    else
+        shift = 0;
+    gSaveBlock1Ptr->nuzlockeEncounters[idx] |= (bit << shift);
+}
+
+bool8 NuzlockeIsEncounterLocked(u8 encounterType)
+{
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    if (headerId == HEADER_NONE || headerId >= WILD_MON_HEADER_COUNT)
+        return FALSE;
+    return (NuzlockeGetBits(headerId) & encounterType) != 0;
+}
+
+void NuzlockeSetEncounterFlag(u8 encounterType, u16 species)
+{
+    u16 headerId;
+
+    if (!FlagGet(FLAG_NUZLOCKE_ACTIVE))
+        return;
+
+    sNuzlockeCurrentSpecies = species;
+    headerId = GetCurrentMapWildMonHeaderId();
+    if (headerId != HEADER_NONE && headerId < WILD_MON_HEADER_COUNT)
+    {
+        if (gSaveBlock1Ptr->nuzlockeFirstSpecies[headerId] == SPECIES_NONE)
+        {
+            /* First encounter on this route — record the species */
+            gSaveBlock1Ptr->nuzlockeFirstSpecies[headerId] = species;
+            sNuzlockeBallsBlocked = FALSE;
+        }
+        else if (gSaveBlock1Ptr->nuzlockeCaughtFlags[headerId / 8] & (1 << (headerId % 8)))
+        {
+            /* Already caught a POKeMON on this route */
+            sNuzlockeBallsBlocked = TRUE;
+        }
+        else if (species == gSaveBlock1Ptr->nuzlockeFirstSpecies[headerId])
+        {
+            /* Same species as first encounter and haven't caught yet — allow */
+            sNuzlockeBallsBlocked = FALSE;
+        }
+        else
+        {
+            /* Different species from first encounter — block */
+            sNuzlockeBallsBlocked = TRUE;
+        }
+        NuzlockeSetBit(headerId, encounterType);
+    }
+}
+
+bool8 NuzlockeAreBallsBlocked(void)
+{
+    return sNuzlockeBallsBlocked;
+}
+
+void NuzlockeSetCaughtFlag(void)
+{
+    u16 headerId;
+
+    if (!FlagGet(FLAG_NUZLOCKE_ACTIVE))
+        return;
+
+    headerId = GetCurrentMapWildMonHeaderId();
+    if (headerId != HEADER_NONE && headerId < WILD_MON_HEADER_COUNT)
+        gSaveBlock1Ptr->nuzlockeCaughtFlags[headerId / 8] |= (1 << (headerId % 8));
+}
+
+bool8 NuzlockeHasCaughtOnRoute(void)
+{
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    if (headerId == HEADER_NONE || headerId >= WILD_MON_HEADER_COUNT)
+        return FALSE;
+    return (gSaveBlock1Ptr->nuzlockeCaughtFlags[headerId / 8] & (1 << (headerId % 8))) != 0;
+}
+
+u16 NuzlockeGetFirstSpecies(void)
+{
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    if (headerId == HEADER_NONE || headerId >= WILD_MON_HEADER_COUNT)
+        return SPECIES_NONE;
+    return gSaveBlock1Ptr->nuzlockeFirstSpecies[headerId];
+}
+
+bool8 NuzlockeIsFirstEncounter(void)
+{
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    if (headerId == HEADER_NONE || headerId >= WILD_MON_HEADER_COUNT)
+        return TRUE;
+    return gSaveBlock1Ptr->nuzlockeFirstSpecies[headerId] == SPECIES_NONE;
 }
 
 bool8 UpdateRepelCounter(void)

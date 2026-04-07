@@ -33,10 +33,13 @@ void HealPlayerParty(void)
     u8 ppBonuses;
     u8 arg[4];
 
-    // restore HP.
+    /* restore HP — skip permadead Pokemon (0 HP) */
     for(i = 0; i < gPlayerPartyCount; i++)
     {
+        u16 curHP = GetMonData(&gPlayerParty[i], MON_DATA_HP);
         u16 maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
+        if (curHP == 0 && maxHP > 0)
+            continue; /* permadead — do not revive */
         arg[0] = maxHP;
         arg[1] = maxHP >> 8;
         SetMonData(&gPlayerParty[i], MON_DATA_HP, arg);

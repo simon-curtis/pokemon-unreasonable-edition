@@ -309,8 +309,8 @@ static const u16 sFavorLadyAcceptedItems_Slippery[] =
     ITEM_BELUE_BERRY,
     ITEM_AWAKENING,
     ITEM_ICE_HEAL,
-    ITEM_REVIVE,
-    ITEM_MAX_REVIVE,
+    ITEM_ELIXIR,
+    ITEM_MAX_ELIXIR,
     ITEM_ENERGY_POWDER,
     ITEM_NONE
 };
@@ -338,7 +338,7 @@ static const u16 sFavorLadyAcceptedItems_Roundish[] =
 
 static const u16 sFavorLadyAcceptedItems_Whamish[] =
 {
-    ITEM_REVIVAL_HERB,
+    ITEM_ENERGY_ROOT,
     ITEM_POTION,
     ITEM_FRESH_WATER,
     ITEM_SODA_POP,
