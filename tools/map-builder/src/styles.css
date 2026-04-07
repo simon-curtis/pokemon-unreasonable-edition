@@ -1,0 +1,524 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap');
+
+@theme {
+  --color-hud-bg: var(--hud-bg);
+  --color-hud-fg: var(--hud-fg);
+  --color-hud-border: var(--hud-border);
+  --color-hud-muted: var(--hud-muted);
+  --color-hud-accent: var(--hud-accent);
+  --color-hud-surface: var(--hud-surface);
+  --color-hud-active: var(--hud-active);
+  --color-hud-active-fg: var(--hud-active-fg);
+  --color-hud-active-border: var(--hud-active-border);
+  --color-hud-panel: var(--hud-panel);
+  --color-hud-glow: var(--hud-glow);
+  --font-hud: 'DM Mono', 'Menlo', monospace;
+  --font-hud-display: 'Space Mono', 'Menlo', monospace;
+
+  /* ─── Semantic text sizes ─────────────────────── */
+  --text-xs: var(--hud-text-xs);
+  --text-sm: var(--hud-text-sm);
+  --text-md: var(--hud-text-md);
+  --text-lg: var(--hud-text-lg);
+  --text-xl: var(--hud-text-xl);
+
+  /* ─── Spacing / sizing tokens ─────────────────── */
+  --spacing-hud-btn-p: var(--hud-btn-p);
+}
+
+:root {
+  --hud-bg: #111113;
+  --hud-fg: #c8c8c2;
+  --hud-border: #2a2a2e;
+  --hud-muted: #555558;
+  --hud-accent: #4d8ef7;
+  --hud-surface: rgba(255, 255, 255, 0.04);
+  --hud-active: rgba(77, 142, 247, 0.12);
+  --hud-active-fg: #8bb8fc;
+  --hud-active-border: rgba(77, 142, 247, 0.45);
+  --hud-panel: #18181b;
+  --hud-grid: rgba(255, 255, 255, 0.10);
+  --hud-overlay-fill: rgba(255, 255, 255, 0.12);
+  --hud-overlay-label: rgba(255, 255, 255, 0.30);
+  --hud-selection-fill: rgba(77, 142, 247, 0.10);
+  --hud-id-text: rgba(0, 0, 0, 0.7);
+  --hud-check-mark: #fff;
+  --hud-glow: rgba(77, 142, 247, 0.08);
+
+  /* Text scale */
+  --hud-text-xs: 10px;
+  --hud-text-sm: 11px;
+  --hud-text-md: 12px;
+  --hud-text-lg: 13px;
+  --hud-text-xl: 14px;
+
+  /* Button spacing */
+  --hud-btn-p: 8px;
+}
+
+.theme-light {
+  --hud-bg: #f0f0ec;
+  --hud-fg: #1c1c1a;
+  --hud-border: #d4d4d0;
+  --hud-muted: #8a8a85;
+  --hud-accent: #2563eb;
+  --hud-surface: rgba(0, 0, 0, 0.025);
+  --hud-active: rgba(37, 99, 235, 0.08);
+  --hud-active-fg: #1a4fd6;
+  --hud-active-border: rgba(37, 99, 235, 0.40);
+  --hud-panel: #fafaf8;
+  --hud-grid: rgba(0, 0, 0, 0.06);
+  --hud-overlay-fill: rgba(0, 0, 0, 0.05);
+  --hud-overlay-label: rgba(0, 0, 0, 0.40);
+  --hud-selection-fill: rgba(37, 99, 235, 0.06);
+  --hud-id-text: rgba(0, 0, 0, 0.75);
+  --hud-check-mark: #fff;
+  --hud-glow: rgba(37, 99, 235, 0.04);
+}
+
+/* ─── Base ────────────────────────────────────── */
+
+canvas {
+  image-rendering: pixelated;
+}
+
+/* ─── Scrollbars ──────────────────────────────── */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hud-border) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hud-border);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hud-muted);
+}
+
+/* ─── Transitions ─────────────────────────────── */
+
+button, .hud-select {
+  transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+
+/* ─── Focus ───────────────────────────────────── */
+
+:focus-visible {
+  outline: 1px solid var(--hud-active-border);
+  outline-offset: -1px;
+}
+
+/* ─── HUD select ──────────────────────────────── */
+
+select.hud-select {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--hud-border);
+  color: var(--hud-fg);
+  padding: 2px 18px 2px 6px;
+  font: inherit;
+  font-size: var(--hud-text-sm);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23555558'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+}
+
+select.hud-select:focus {
+  outline: 1px solid var(--hud-active-border);
+  outline-offset: -1px;
+}
+
+select.hud-select option {
+  background: var(--hud-panel);
+  color: var(--hud-fg);
+}
+
+/* ─── HUD checkbox ────────────────────────────── */
+
+input[type="checkbox"].hud-check {
+  appearance: none;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--hud-muted);
+  cursor: pointer;
+  vertical-align: middle;
+  position: relative;
+  transition: background-color 100ms ease, border-color 100ms ease;
+}
+
+input[type="checkbox"].hud-check:checked {
+  background: var(--hud-accent);
+  border-color: var(--hud-accent);
+}
+
+input[type="checkbox"].hud-check:checked::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--hud-check-mark);
+}
+
+/* ─── Animations ──────────────────────────────── */
+
+@keyframes hud-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes hud-fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes hud-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.hud-animate-in {
+  animation: hud-fadein 200ms ease-out;
+}
+
+.hud-pulse {
+  animation: hud-pulse 2s ease-in-out infinite;
+}
+
+/* ─── Splash grid bg ──────────────────────────── */
+
+.hud-grid-bg {
+  background-image:
+    linear-gradient(var(--hud-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hud-border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center center;
+}
+
+/* ─── Panel header ────────────────────────────── */
+
+.hud-panel-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--hud-border);
+  font-size: var(--hud-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  color: var(--hud-muted);
+  font-family: var(--font-hud-display);
+}
+
+.hud-panel-header .hud-panel-title {
+  color: var(--hud-fg);
+}
+
+/* ─── React Flow HUD overrides ────────────────── */
+
+.react-flow__controls button {
+  background: var(--hud-bg) !important;
+  border-color: var(--hud-border) !important;
+  fill: var(--hud-fg) !important;
+}
+
+.react-flow__controls button:hover {
+  background: var(--hud-active) !important;
+}
+
+.react-flow__controls button svg {
+  fill: var(--hud-fg) !important;
+}
+
+/* edge styles moved to script-node section above */
+
+/* ─── Script node (Blueprint style) ──────────── */
+
+.script-node {
+  position: relative;
+  min-width: 200px;
+  max-width: 280px;
+  background: var(--hud-panel);
+  border: 1px solid var(--hud-border);
+  border-radius: 0;
+  font-family: var(--font-hud);
+  font-size: var(--hud-text-sm);
+  overflow: visible;
+  transition: border-color 120ms ease, box-shadow 200ms ease;
+}
+
+.script-node-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  border-radius: 0;
+  opacity: 0.8;
+}
+
+.script-node-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 4px 12px;
+  border-bottom: 1px solid var(--hud-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.theme-light .script-node-header {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.script-node-icon {
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.script-node-title {
+  font-size: var(--hud-text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--hud-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.script-node-body {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 6px 0;
+  min-height: 28px;
+}
+
+.script-node-pins {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+.script-node-pins-out {
+  margin-left: auto;
+}
+
+.script-node-pin {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.script-node-pin-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.script-node-pin-label {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--hud-muted);
+  white-space: nowrap;
+}
+
+.script-node-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0 4px;
+  min-width: 0;
+  justify-content: center;
+}
+
+.script-node-input {
+  width: 100%;
+  background: var(--hud-bg);
+  border: 1px solid var(--hud-border);
+  padding: 2px 6px;
+  font-size: var(--hud-text-sm);
+  font-family: var(--font-hud);
+  color: var(--hud-fg);
+  outline: none;
+  border-radius: 1px;
+  transition: border-color 120ms ease;
+}
+
+.script-node-input:focus {
+  border-color: var(--hud-active-border);
+}
+
+.script-node-preview {
+  font-size: var(--hud-text-xs);
+  color: var(--hud-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2px;
+}
+
+.script-node-more {
+  font-size: 9px;
+  color: var(--hud-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 2px;
+}
+
+.script-node-empty {
+  font-size: var(--hud-text-xs);
+  color: var(--hud-muted);
+  padding: 0 2px;
+}
+
+/* handles (connection points) */
+.script-node-handle {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--hud-panel) !important;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.script-node-handle:hover {
+  transform: scale(1.4);
+  box-shadow: 0 0 6px var(--hud-accent);
+}
+
+/* edge hover wire glow */
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: var(--hud-accent) !important;
+  filter: drop-shadow(0 0 3px var(--hud-accent));
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--hud-accent) !important;
+  stroke-width: 2.5 !important;
+  filter: drop-shadow(0 0 4px var(--hud-accent));
+}
+
+/* ─── Chat markdown ──────────────────────────── */
+
+.chat-markdown p {
+  margin: 0 0 0.5em !important;
+}
+
+.chat-markdown p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.chat-markdown strong, .chat-markdown b {
+  font-weight: 700 !important;
+  color: var(--hud-fg) !important;
+}
+
+.chat-markdown em, .chat-markdown i {
+  font-style: italic !important;
+}
+
+.chat-markdown u {
+  text-decoration: underline !important;
+}
+
+.chat-markdown code {
+  background: var(--hud-surface) !important;
+  border: 1px solid var(--hud-border) !important;
+  padding: 1px 4px !important;
+  font-size: 0.9em !important;
+}
+
+.chat-markdown pre {
+  background: var(--hud-surface) !important;
+  border: 1px solid var(--hud-border) !important;
+  padding: 8px !important;
+  margin: 0.5em 0 !important;
+  overflow-x: auto !important;
+  white-space: pre-wrap !important;
+}
+
+.chat-markdown pre code {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.chat-markdown ul {
+  list-style-type: disc !important;
+  margin: 0.25em 0 !important;
+  padding-left: 1.5em !important;
+}
+
+.chat-markdown ol {
+  list-style-type: decimal !important;
+  margin: 0.25em 0 !important;
+  padding-left: 1.5em !important;
+}
+
+.chat-markdown li {
+  margin: 0.15em 0 !important;
+  display: list-item !important;
+}
+
+.chat-markdown h1 {
+  font-weight: 700 !important;
+  font-size: 1.25em !important;
+  margin: 0.5em 0 0.25em !important;
+  color: var(--hud-fg) !important;
+}
+
+.chat-markdown h2 {
+  font-weight: 700 !important;
+  font-size: 1.15em !important;
+  margin: 0.5em 0 0.25em !important;
+  color: var(--hud-fg) !important;
+}
+
+.chat-markdown h3, .chat-markdown h4,
+.chat-markdown h5, .chat-markdown h6 {
+  font-weight: 700 !important;
+  font-size: 1em !important;
+  margin: 0.5em 0 0.25em !important;
+  color: var(--hud-fg) !important;
+}
+
+.chat-markdown a {
+  color: var(--hud-accent) !important;
+  text-decoration: underline !important;
+}
+
+.chat-markdown blockquote {
+  border-left: 2px solid var(--hud-border) !important;
+  padding-left: 8px !important;
+  margin: 0.5em 0 !important;
+  color: var(--hud-muted) !important;
+}
+
+.chat-markdown hr {
+  border: none !important;
+  border-top: 1px solid var(--hud-border) !important;
+  margin: 0.5em 0 !important;
+}

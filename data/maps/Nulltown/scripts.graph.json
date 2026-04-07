@@ -1,0 +1,710 @@
+{
+  "nodes": [
+    {
+      "id": "node-7",
+      "type": "script",
+      "position": {
+        "x": 390,
+        "y": 0
+      },
+      "data": {
+        "schemaType": "label",
+        "labelName": "Nulltown_EventScript_Quin"
+      },
+      "measured": {
+        "width": 205,
+        "height": 57
+      }
+    },
+    {
+      "id": "node-8",
+      "type": "script",
+      "position": {
+        "x": 575.7142857142858,
+        "y": 1350
+      },
+      "data": {
+        "schemaType": "label",
+        "labelName": "Nulltown_EventScript_QuinSaidYes"
+      },
+      "measured": {
+        "width": 205,
+        "height": 57
+      }
+    },
+    {
+      "id": "node-9",
+      "type": "script",
+      "position": {
+        "x": 835.7142857142858,
+        "y": 1350
+      },
+      "data": {
+        "schemaType": "label",
+        "labelName": "Nulltown_EventScript_QuinSaidNo"
+      },
+      "measured": {
+        "width": 205,
+        "height": 57
+      }
+    },
+    {
+      "id": "node-10",
+      "type": "script",
+      "position": {
+        "x": 445.7142857142858,
+        "y": 750
+      },
+      "data": {
+        "schemaType": "label",
+        "labelName": "Nulltown_EventScript_QuinAlreadyMet"
+      },
+      "measured": {
+        "width": 205,
+        "height": 57
+      }
+    },
+    {
+      "id": "node-11",
+      "type": "script",
+      "position": {
+        "x": 185.71428571428578,
+        "y": 600
+      },
+      "data": {
+        "schemaType": "label",
+        "labelName": "Nulltown_EventScript_QuinPostStarter"
+      },
+      "measured": {
+        "width": 205,
+        "height": 57
+      }
+    },
+    {
+      "id": "node-32",
+      "type": "script",
+      "position": {
+        "x": 390,
+        "y": 150
+      },
+      "data": {
+        "schemaType": "lock_release",
+        "action": "lock",
+        "scope": "single"
+      },
+      "measured": {
+        "width": 240,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-33",
+      "type": "script",
+      "position": {
+        "x": 390,
+        "y": 300
+      },
+      "data": {
+        "schemaType": "faceplayer"
+      },
+      "measured": {
+        "width": 160,
+        "height": 49
+      }
+    },
+    {
+      "id": "node-34",
+      "type": "script",
+      "position": {
+        "x": 390,
+        "y": 450
+      },
+      "data": {
+        "schemaType": "branch_var",
+        "var": "VAR_NULLTOWN_STATE",
+        "comparison": ">=",
+        "value": "2"
+      },
+      "measured": {
+        "width": 205,
+        "height": 100
+      }
+    },
+    {
+      "id": "node-35",
+      "type": "script",
+      "position": {
+        "x": 575.7142857142858,
+        "y": 600
+      },
+      "data": {
+        "schemaType": "branch_flag",
+        "flag": "FLAG_NULLTOWN_MET_QUIN"
+      },
+      "measured": {
+        "width": 205,
+        "height": 57
+      }
+    },
+    {
+      "id": "node-36",
+      "type": "script",
+      "position": {
+        "x": 705.7142857142858,
+        "y": 750
+      },
+      "data": {
+        "schemaType": "msgbox",
+        "text": "QUIN: -- and THAT is our new\nneighbor’s house! Rating: four\nout of ten. Could use landscaping.\n\nOh! You’re the new kid! I’m QUIN!\n\nI’m documenting my entire POKeMON\njourney for my followers.\nI have seven followers.\nSix of them are my mom on alt\naccounts.",
+        "msgType": "MSGBOX_DEFAULT"
+      },
+      "measured": {
+        "width": 240,
+        "height": 74
+      }
+    },
+    {
+      "id": "node-37",
+      "type": "script",
+      "position": {
+        "x": 705.7142857142858,
+        "y": 900
+      },
+      "data": {
+        "schemaType": "msgbox",
+        "text": "QUIN: You’re going on a journey\ntoo, right? RIGHT?\n\nPlease say yes. I need a rival\nfor content. Solo journeys don’t\nget engagement.",
+        "msgType": "MSGBOX_DEFAULT"
+      },
+      "measured": {
+        "width": 240,
+        "height": 74
+      }
+    },
+    {
+      "id": "node-38",
+      "type": "script",
+      "position": {
+        "x": 705.7142857142858,
+        "y": 1050
+      },
+      "data": {
+        "schemaType": "msgbox",
+        "text": "QUIN: So you’ll be my rival?",
+        "msgType": "MSGBOX_YESNO"
+      },
+      "measured": {
+        "width": 240,
+        "height": 74
+      }
+    },
+    {
+      "id": "node-39",
+      "type": "script",
+      "position": {
+        "x": 705.7142857142858,
+        "y": 1200
+      },
+      "data": {
+        "schemaType": "branch_var",
+        "var": "VAR_RESULT",
+        "comparison": "==",
+        "value": "YES"
+      },
+      "measured": {
+        "width": 205,
+        "height": 100
+      }
+    },
+    {
+      "id": "node-41",
+      "type": "script",
+      "position": {
+        "x": 575.7142857142858,
+        "y": 1500
+      },
+      "data": {
+        "schemaType": "msgbox",
+        "text": "QUIN: PERFECT! This is going to be\nincredible! Rating: ten out of ten!\nMaximum hype!\n\nGo talk to PROFESSOR THORN in the\nbarn -- I mean, the FIELD LAB.\nThey give out starters!",
+        "msgType": "MSGBOX_DEFAULT"
+      },
+      "measured": {
+        "width": 240,
+        "height": 74
+      }
+    },
+    {
+      "id": "node-42",
+      "type": "script",
+      "position": {
+        "x": 575.7142857142858,
+        "y": 1650
+      },
+      "data": {
+        "schemaType": "set_flag",
+        "flag": "FLAG_NULLTOWN_MET_QUIN",
+        "action": "set"
+      },
+      "measured": {
+        "width": 205,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-43",
+      "type": "script",
+      "position": {
+        "x": 575.7142857142858,
+        "y": 1800
+      },
+      "data": {
+        "schemaType": "set_var",
+        "var": "VAR_NULLTOWN_STATE",
+        "value": "1"
+      },
+      "measured": {
+        "width": 205,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-44",
+      "type": "script",
+      "position": {
+        "x": 575.7142857142858,
+        "y": 1950
+      },
+      "data": {
+        "schemaType": "lock_release",
+        "action": "release",
+        "scope": "single"
+      },
+      "measured": {
+        "width": 240,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-45",
+      "type": "script",
+      "position": {
+        "x": 575.7142857142858,
+        "y": 2100
+      },
+      "data": {
+        "schemaType": "end"
+      },
+      "measured": {
+        "width": 160,
+        "height": 49
+      }
+    },
+    {
+      "id": "node-46",
+      "type": "script",
+      "position": {
+        "x": 835.7142857142858,
+        "y": 1500
+      },
+      "data": {
+        "schemaType": "msgbox",
+        "text": "QUIN: I’m going to pretend you said\nyes because my narrative arc\nrequires it.\n\nGo talk to PROFESSOR THORN.\nThe barn. You’ll know it because\nit’s a barn.",
+        "msgType": "MSGBOX_DEFAULT"
+      },
+      "measured": {
+        "width": 240,
+        "height": 74
+      }
+    },
+    {
+      "id": "node-47",
+      "type": "script",
+      "position": {
+        "x": 835.7142857142858,
+        "y": 1650
+      },
+      "data": {
+        "schemaType": "set_flag",
+        "flag": "FLAG_NULLTOWN_MET_QUIN",
+        "action": "set"
+      },
+      "measured": {
+        "width": 205,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-48",
+      "type": "script",
+      "position": {
+        "x": 835.7142857142858,
+        "y": 1800
+      },
+      "data": {
+        "schemaType": "set_var",
+        "var": "VAR_NULLTOWN_STATE",
+        "value": "1"
+      },
+      "measured": {
+        "width": 205,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-49",
+      "type": "script",
+      "position": {
+        "x": 835.7142857142858,
+        "y": 1950
+      },
+      "data": {
+        "schemaType": "lock_release",
+        "action": "release",
+        "scope": "single"
+      },
+      "measured": {
+        "width": 240,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-50",
+      "type": "script",
+      "position": {
+        "x": 835.7142857142858,
+        "y": 2100
+      },
+      "data": {
+        "schemaType": "end"
+      },
+      "measured": {
+        "width": 160,
+        "height": 49
+      }
+    },
+    {
+      "id": "node-51",
+      "type": "script",
+      "position": {
+        "x": 445.7142857142858,
+        "y": 900
+      },
+      "data": {
+        "schemaType": "msgbox",
+        "text": "QUIN: Go talk to PROFESSOR THORN\nin the FIELD LAB already!\n\nI can’t start my content arc\nwithout a rival montage.",
+        "msgType": "MSGBOX_DEFAULT"
+      },
+      "measured": {
+        "width": 240,
+        "height": 74
+      }
+    },
+    {
+      "id": "node-52",
+      "type": "script",
+      "position": {
+        "x": 445.7142857142858,
+        "y": 1050
+      },
+      "data": {
+        "schemaType": "lock_release",
+        "action": "release",
+        "scope": "single"
+      },
+      "measured": {
+        "width": 240,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-53",
+      "type": "script",
+      "position": {
+        "x": 445.7142857142858,
+        "y": 1200
+      },
+      "data": {
+        "schemaType": "end"
+      },
+      "measured": {
+        "width": 160,
+        "height": 49
+      }
+    },
+    {
+      "id": "node-54",
+      "type": "script",
+      "position": {
+        "x": 185.71428571428578,
+        "y": 750
+      },
+      "data": {
+        "schemaType": "msgbox",
+        "text": "QUIN: You got a starter? Nice!\nTime to see who’s the better\ntrainer. For content purposes.\n\nMeet me on ROUTE N-1! First one\nto FERRO CITY gets bragging rights!",
+        "msgType": "MSGBOX_DEFAULT"
+      },
+      "measured": {
+        "width": 240,
+        "height": 74
+      }
+    },
+    {
+      "id": "node-55",
+      "type": "script",
+      "position": {
+        "x": 185.71428571428578,
+        "y": 900
+      },
+      "data": {
+        "schemaType": "lock_release",
+        "action": "release",
+        "scope": "single"
+      },
+      "measured": {
+        "width": 240,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-56",
+      "type": "script",
+      "position": {
+        "x": 185.71428571428578,
+        "y": 1050
+      },
+      "data": {
+        "schemaType": "end"
+      },
+      "measured": {
+        "width": 160,
+        "height": 49
+      }
+    },
+    {
+      "id": "node-57",
+      "type": "script",
+      "position": {
+        "x": -88.7377268650786,
+        "y": 762.4096284300704
+      },
+      "data": {
+        "schemaType": "give_mon",
+        "species": "SPECIES_PIKACHU",
+        "level": "5",
+        "item": ""
+      },
+      "measured": {
+        "width": 205,
+        "height": 100
+      },
+      "selected": false,
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-node-7-flow_out-node-32",
+      "source": "node-7",
+      "sourceHandle": "flow_out",
+      "target": "node-32",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-32-flow_out-node-33",
+      "source": "node-32",
+      "sourceHandle": "flow_out",
+      "target": "node-33",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-33-flow_out-node-34",
+      "source": "node-33",
+      "sourceHandle": "flow_out",
+      "target": "node-34",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-34-flow_true-node-11",
+      "source": "node-34",
+      "sourceHandle": "flow_true",
+      "target": "node-11",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-34-flow_false-node-35",
+      "source": "node-34",
+      "sourceHandle": "flow_false",
+      "target": "node-35",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-35-flow_true-node-10",
+      "source": "node-35",
+      "sourceHandle": "flow_true",
+      "target": "node-10",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-35-flow_false-node-36",
+      "source": "node-35",
+      "sourceHandle": "flow_false",
+      "target": "node-36",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-36-flow_out-node-37",
+      "source": "node-36",
+      "sourceHandle": "flow_out",
+      "target": "node-37",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-37-flow_out-node-38",
+      "source": "node-37",
+      "sourceHandle": "flow_out",
+      "target": "node-38",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-38-flow_out-node-39",
+      "source": "node-38",
+      "sourceHandle": "flow_out",
+      "target": "node-39",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-39-flow_true-node-8",
+      "source": "node-39",
+      "sourceHandle": "flow_true",
+      "target": "node-8",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-39-flow_false-node-9",
+      "source": "node-39",
+      "sourceHandle": "flow_false",
+      "target": "node-9",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-8-flow_out-node-41",
+      "source": "node-8",
+      "sourceHandle": "flow_out",
+      "target": "node-41",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-41-flow_out-node-42",
+      "source": "node-41",
+      "sourceHandle": "flow_out",
+      "target": "node-42",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-42-flow_out-node-43",
+      "source": "node-42",
+      "sourceHandle": "flow_out",
+      "target": "node-43",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-43-flow_out-node-44",
+      "source": "node-43",
+      "sourceHandle": "flow_out",
+      "target": "node-44",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-44-flow_out-node-45",
+      "source": "node-44",
+      "sourceHandle": "flow_out",
+      "target": "node-45",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-9-flow_out-node-46",
+      "source": "node-9",
+      "sourceHandle": "flow_out",
+      "target": "node-46",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-46-flow_out-node-47",
+      "source": "node-46",
+      "sourceHandle": "flow_out",
+      "target": "node-47",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-47-flow_out-node-48",
+      "source": "node-47",
+      "sourceHandle": "flow_out",
+      "target": "node-48",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-48-flow_out-node-49",
+      "source": "node-48",
+      "sourceHandle": "flow_out",
+      "target": "node-49",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-49-flow_out-node-50",
+      "source": "node-49",
+      "sourceHandle": "flow_out",
+      "target": "node-50",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-10-flow_out-node-51",
+      "source": "node-10",
+      "sourceHandle": "flow_out",
+      "target": "node-51",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-51-flow_out-node-52",
+      "source": "node-51",
+      "sourceHandle": "flow_out",
+      "target": "node-52",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-52-flow_out-node-53",
+      "source": "node-52",
+      "sourceHandle": "flow_out",
+      "target": "node-53",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-11-flow_out-node-54",
+      "source": "node-11",
+      "sourceHandle": "flow_out",
+      "target": "node-54",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-55-flow_out-node-56",
+      "source": "node-55",
+      "sourceHandle": "flow_out",
+      "target": "node-56",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-58",
+      "source": "node-54",
+      "sourceHandle": "flow_out",
+      "target": "node-57",
+      "targetHandle": "flow_in",
+      "type": "smoothstep"
+    },
+    {
+      "id": "e-59",
+      "source": "node-57",
+      "sourceHandle": "flow_party",
+      "target": "node-55",
+      "targetHandle": "flow_in",
+      "type": "smoothstep"
+    }
+  ]
+}

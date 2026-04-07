@@ -1,0 +1,40 @@
+{
+  "name": "map-viewer",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^3.0.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@tabler/icons-react": "^3.41.1",
+    "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "latest",
+    "@tanstack/react-router": "latest",
+    "@tanstack/react-start": "latest",
+    "@xyflow/react": "^12.10.2",
+    "jotai": "^2.19.1",
+    "pngjs": "^7",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pngjs": "^6",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.1.4",
+    "typescript": "^5.7.2",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

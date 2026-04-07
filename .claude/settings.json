@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(make*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/check_onframe_scripts.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

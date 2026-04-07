@@ -1,0 +1,92 @@
+{
+  "nodes": [
+    {
+      "id": "node-39",
+      "type": "script",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "data": {
+        "schemaType": "label",
+        "labelName": "Route101_EventScript_Item1"
+      },
+      "measured": {
+        "width": 205,
+        "height": 57
+      }
+    },
+    {
+      "id": "node-166",
+      "type": "script",
+      "position": {
+        "x": 0,
+        "y": 150
+      },
+      "data": {
+        "schemaType": "lock_release",
+        "action": "lock",
+        "scope": "all"
+      },
+      "measured": {
+        "width": 240,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-167",
+      "type": "script",
+      "position": {
+        "x": 0,
+        "y": 300
+      },
+      "data": {
+        "schemaType": "lock_release",
+        "action": "release",
+        "scope": "all"
+      },
+      "measured": {
+        "width": 240,
+        "height": 83
+      }
+    },
+    {
+      "id": "node-168",
+      "type": "script",
+      "position": {
+        "x": 0,
+        "y": 450
+      },
+      "data": {
+        "schemaType": "end"
+      },
+      "measured": {
+        "width": 160,
+        "height": 49
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-node-39-flow_out-node-166",
+      "source": "node-39",
+      "sourceHandle": "flow_out",
+      "target": "node-166",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-166-flow_out-node-167",
+      "source": "node-166",
+      "sourceHandle": "flow_out",
+      "target": "node-167",
+      "targetHandle": "flow_in"
+    },
+    {
+      "id": "e-node-167-flow_out-node-168",
+      "source": "node-167",
+      "sourceHandle": "flow_out",
+      "target": "node-168",
+      "targetHandle": "flow_in"
+    }
+  ]
+}
